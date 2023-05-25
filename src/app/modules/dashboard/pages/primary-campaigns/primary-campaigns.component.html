@@ -1,0 +1,39 @@
+<div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col items-center">
+      <h3 class="text-md font-bold text-gray-900 dark:text-night-50">Primary Campaigns</h3>
+      <span class="text-sm text-gray-400 dark:text-night-300">List of recent campaigns</span>
+    </div>
+    <button routerLink="/new-campaign/campaign-details"
+      class="flex-none rounded-md bg-primary-600 px-4 py-2.5 text-xs font-semibold text-gray-100 hover:bg-primary-400 dark:bg-night-600 dark:text-night-200 dark:hover:bg-night-500">
+      Add New Campaign
+    </button>
+  </div>
+
+  <div class="relative overflow-x-auto">
+    <table class="w-full table-auto">
+      <!--Table head-->
+      <thead class="text-xs uppercase text-gray-400 dark:text-night-300">
+        <tr>
+          <th class="py-3 text-left">Campaign</th>
+          <th class="py-3 text-right">Date Created</th>
+          <th class="py-3 text-right">Payout</th>
+          <th class="py-3 text-right">Published</th>
+          <th class="py-3 text-right">Activate</th>
+          <th class="py-3 pr-2 text-left">Actions</th>
+        </tr>
+      </thead>
+      <!--end Table head-->
+      <!--Table body-->
+      <tbody>
+        <ngx-spinner bdColor = "#fff" size = "medium" color = "#1520a6" type = "ball-circus" [fullScreen] = "false"><p style="color: white" ></p>Loading...</ngx-spinner>
+        <tr
+          *ngFor="let campaign of rows"
+          [auction]="campaign"
+          nft-auctions-table-item
+          class="border-b border-dashed border-gray-200 hover:bg-gray-100 dark:border-night-500 dark:hover:bg-night-600"></tr>
+      </tbody>
+      <!--end::Table body-->
+    </table>
+  </div>
+</div>

@@ -24,6 +24,7 @@ export type ChartOptions = {
   legend: ApexLegend;
   dataLabels: ApexDataLabels;
   fill: ApexFill;
+
   stroke: ApexStroke;
   xaxis: ApexXAxis;
   yaxis: ApexYAxis | ApexYAxis[];

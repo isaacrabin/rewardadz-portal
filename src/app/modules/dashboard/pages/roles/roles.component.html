@@ -1,0 +1,35 @@
+<div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col items-center">
+      <h3 class="text-md font-bold text-gray-900 dark:text-night-50">Roles</h3>
+      <!-- <span class="text-sm text-gray-400 dark:text-night-300">Updated 37 minutes ago</span> -->
+    </div>
+    <button
+      class="flex-none rounded-md bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-500 hover:bg-gray-200 dark:bg-night-600 dark:text-night-200 dark:hover:bg-night-500">
+      History
+    </button>
+  </div>
+
+  <div class="relative overflow-x-auto">
+    <table class="w-full table-auto">
+      <!--Table head-->
+      <thead class="text-xs uppercase text-gray-400 dark:text-night-300">
+        <tr>
+          <th class="py-3 text-left">Name</th>
+          <th class="py-3 text-left">Action</th>
+        </tr>
+      </thead>
+      <!--end Table head-->
+      <!--Table body-->
+      <tbody>
+        <ngx-spinner bdColor = "#fff" size = "medium" color = "#1520a6" type = "ball-circus" [fullScreen] = "false"><p style="color: white" ></p>Loading...</ngx-spinner>
+        <tr
+          *ngFor="let role of rows"
+          [role]="role"
+          app-role-table-item
+          class="border-b border-dashed border-gray-200 hover:bg-gray-100 dark:border-night-500 dark:hover:bg-night-600"></tr>
+      </tbody>
+      <!--end::Table body-->
+    </table>
+  </div>
+</div>

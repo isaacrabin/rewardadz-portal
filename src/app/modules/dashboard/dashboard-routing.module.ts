@@ -2,14 +2,30 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { NftComponent } from './pages/nft/nft.component';
+import { PrimaryCampaignsComponent } from './pages/primary-campaigns/primary-campaigns.component';
+import { SecondaryCampaignsComponent } from './pages/secondary-campaigns/secondary-campaigns.component';
+import { ExpenditureComponent } from './pages/expenditure/expenditure.component';
+import { RevenueComponent } from './pages/revenue/revenue.component';
+import { ApiKeyComponent } from './pages/api-key/api-key.component';
+import { RolesComponent } from './pages/roles/roles.component';
+import { TeamComponent } from './pages/team/team.component';
+import { NewCampaignComponent } from './pages/new-campaign/new-campaign.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     children: [
-      { path: '', redirectTo: 'nfts', pathMatch: 'full' },
-      { path: 'nfts', component: NftComponent },
+      { path: '', redirectTo: 'analytics', pathMatch: 'full' },
+      { path: 'analytics', component: NftComponent },
+      { path: 'primary-campaigns', component: PrimaryCampaignsComponent },
+      { path: 'secondary-campaigns', component: SecondaryCampaignsComponent },
+      { path: 'expenditure', component: ExpenditureComponent },
+      { path: 'revenue', component: RevenueComponent },
+      { path: 'api-key', component: ApiKeyComponent },
+      { path: 'roles', component: RolesComponent },
+      { path: 'team', component: TeamComponent},
+      { path: 'new-campaign', component: NewCampaignComponent},
       { path: '**', redirectTo: 'error/404' },
     ],
   },

@@ -5,18 +5,19 @@
 
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
     <!-- Dual Card -->
-    <div nft-dual-card [nft]="nft[0]" class="md:col-span-2"></div>
+    <div app-campaign-clicks class="md:col-span-2"></div>
     <!-- end Dual Card -->
     <!-- Single Card -->
-    <div nft-single-card [nft]="nft[1]"></div>
+    <div app-campaign-gender  class="md:col-span-2"></div>
     <!-- end Single Card -->
-    <!-- Single Card -->
-    <div nft-single-card [nft]="nft[2]"></div>
-    <!-- end Single Card -->
-    <!-- Single Card -->
-    <div nft-chart-card class="md:col-span-2 xl:col-span-1"></div>
-    <!-- end Single Card -->
-    <!-- Auctions Table -->
-    <div nft-auctions-table class="md:col-span-2 xl:col-span-3"></div>
+
+  <!-- Dual Card -->
+  <div app-conversions-impressions class="md:col-span-2"></div>
+  <!-- end Dual Card -->
+  <!-- Single Card -->
+  <div app-age-breakdown class="md:col-span-2"></div>
+  <!-- end Single Card -->
+
+    <div nft-auctions-table class="md:col-span-4 xl:col-span-4"></div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/core/services/auth.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,6 +12,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
 import { TwoStepsComponent } from './pages/two-steps/two-steps.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AngularSvgIconModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
+
   ],
+  providers:[AuthService]
 })
 export class AuthModule {}

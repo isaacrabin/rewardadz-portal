@@ -8,9 +8,9 @@
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "noImplicitReturns": false,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
@@ -24,12 +24,15 @@
       "es2020",
       "dom"
     ],
+
+
+
     "useDefineForClassFields": false
   },
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,
 		"strictInjectionParameters": true,
 		"strictInputAccessModifiers": true,
-		"strictTemplates": true
+		"strictTemplates": true,
 	}
 }

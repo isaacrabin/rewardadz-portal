@@ -1,0 +1,35 @@
+<td class="py-2 pl-2 text-center">
+  <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{  team.lastLogin | date:"short" }}</span>
+</td>
+
+<td class="py-2 pl-2 text-left">
+  <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{  team.user_name}}</span>
+</td>
+<td class="py-2 pl-2 text-left">
+  <span class="text-sm font-semibold text-gray-400 dark:text-night-200">{{  team.email}}</span>
+</td>
+
+<td class="py-2 pl-2 text-left">
+  <!-- <div class="ml-4 flex items-center justify-start">
+		<img [src]="transaction.avatar" class="mr-3 h-8 w-8 rounded-b-md" alt="" />
+	</div> -->
+  <span *ngIf="!team.status" class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Inactive</span>
+  <span *ngIf="team.status" class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Active</span>
+
+</td>
+
+<td class="py-2 pl-2 text-left row">
+  <div class="flex justify-start">
+    <button
+      href="#"
+      class="flex h-7 w-7 items-center justify-center m-2 rounded-md bg-orange-400 text-gray-200 dark:bg-night-500 dark:text-night-300">
+      <svg-icon src="assets/icons/outline/edit1.svg" [svgClass]="'h-5 w-5'"> </svg-icon>
+    </button>
+  <button
+  href="#"
+  class="flex h-7 w-7 items-center justify-center m-2 rounded-md bg-red-400 text-gray-200 dark:bg-night-500 dark:text-night-300">
+  <svg-icon src="assets/icons/outline/delete.svg" [svgClass]="'h-5 w-5'"> </svg-icon>
+</button>
+  </div>
+</td>
+

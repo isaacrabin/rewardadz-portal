@@ -1,6 +1,6 @@
 {
   "name": "angular-tailwind",
-  "displayName": "Angular Tailwind",
+  "displayName": "RewardAdz",
   "version": "0.1.1",
   "description": "Angular & Tailwind CSS Admin Dashboard Starter Kit, Free and Open Source",
   "homepage": "https://github.com/luciano-work/angular-tailwind#readme",
@@ -11,6 +11,7 @@
   "keywords": [
     "angular",
     "tailwind",
+    "google",
     "starter-kit",
     "tailwind-template",
     "dark mode",
@@ -31,7 +32,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.1.0",
+    "@agm/core": "^1.1.0",
+    "@angular/animations": "^15.2.9",
     "@angular/common": "^15.1.0",
     "@angular/compiler": "^15.1.0",
     "@angular/core": "^15.1.0",
@@ -42,11 +44,16 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/typography": "^0.5.4",
+    "@types/google-maps": "^3.2.3",
     "angular-svg-icon": "^13.0.0",
     "apexcharts": "^3.35.3",
     "ng-apexcharts": "^1.7.1",
+    "ngx-awesome-uploader": "^15.0.0",
+    "ngx-spinner": "^8.1.0",
+    "ngx-toastr": "^16.2.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
+    "tw-elements": "^1.0.0-beta2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

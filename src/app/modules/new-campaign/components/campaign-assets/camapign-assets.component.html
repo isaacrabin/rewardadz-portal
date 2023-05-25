@@ -1,0 +1,130 @@
+<!-- component -->
+<div class="p-5">
+  <div class="mx-4 p-4">
+      <div class="flex items-center">
+          <div class="flex items-center text-gray-500 relative">
+              <div class="cursor-pointer rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark ">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+              </div>
+              <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Camapign Details</div>
+          </div>
+          <div class="flex-auto border-t-2 transition duration-500 ease-in-out"></div>
+          <div class="flex  active items-center text-gray-500 relative cursor-pointer">
+              <div class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus ">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="8.5" cy="7" r="4"></circle>
+                      <line x1="20" y1="8" x2="20" y2="14"></line>
+                      <line x1="23" y1="11" x2="17" y2="11"></line>
+                  </svg>
+              </div>
+              <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Camapign Files</div>
+          </div>
+          <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
+          <div class="flex items-center text-gray-500 relative">
+              <div class="rounded-full transition duration-500 ease-in-out h-12 w-12 cursor-pointer py-3 border-2 border-gray-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail ">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+              </div>
+              <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Campaign Metrics</div>
+          </div>
+          <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
+          <div class="flex items-center text-gray-500 relative">
+              <div class="rounded-full transition duration-500 cursor-pointer ease-in-out h-12 w-12 py-3 border-2 border-gray-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database ">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+              </div>
+              <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-gray-500">Campaign Budget</div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!--FILES SECTION-->
+<div>
+  <form [formGroup]="form">
+    <div class="flex flex-col md:flex-row">
+    <div class="w-full flex-1 mx-2 svelte-1l8159u">
+    <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Campaign Logo</div>
+    <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+      <div class="flex items-center justify-center w-full">
+        <!-- <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-54 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+            </div>
+            <input #icon formControlName="icon" (change)="addLogo($event)" accept='image/*' id="dropzone-file" type="file" class="hidden" />
+        </label> -->
+        <input #icon formControlName="icon" (change)="addLogo($event)" accept='image/*' id="dropzone-file" type="file" />
+    </div>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+      <div class="bg-green-600 h-2.5 rounded-full dark:bg-green-500"  [style.width.%]="progress"></div>
+    </div>
+    </div>
+    <div class="w-full flex-1 mx-2 svelte-1l8159u">
+    <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Campaign File</div>
+    <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+      <div class="flex items-center justify-center w-full">
+        <div class="uploader-wrapper">
+          <div style="text-align:center;">
+            <code>
+              File upload with progress <strong>Angular</strong>
+            </code>
+          </div>
+
+          <div style="margin-top:100px; text-align: center;">
+            <code >
+                <input type="file" (change)=" onFileSelected($event)" class="custom-file-input"><br>
+              <strong style="font-size:20px;">{{percentDone}}</strong>
+            </code>
+          </div>
+        </div>
+
+          <!-- <input #file (change)="addFile($event)" formControlName="file"  id="dropzone-file" type="file"  /> -->
+        <!-- <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-54 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+            </div>
+            <input #file (change)="addFile($event)" formControlName="file"  id="dropzone-file" type="file" class="hidden" />
+        </label> -->
+
+    </div>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+      <div class="bg-green-600 h-2.5 rounded-full dark:bg-green-500" [style.width.%]="progress"></div>
+    </div>
+    </div>
+    </div>
+    <div class="flex p-2 mt-4">
+      <button disabled="" type="button" class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
+        Previous
+      </button>
+    <div class="flex-auto flex flex-row-reverse">
+
+    <button *ngIf="loading" disabled type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+      <svg aria-hidden="true" role="status" class="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"></path>
+      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"></path>
+      </svg>
+      Loading...
+    </button>
+    <button (click)="saveDetails()" *ngIf="!loading" type="button" class="text-white bg-blue-700 hover:bg-blue-800 cursor-pointer focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+
+      Continue
+    </button>
+
+    </div>
+    </div>
+  </form>
+</div>
