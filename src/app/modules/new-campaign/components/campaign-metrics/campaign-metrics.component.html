@@ -50,46 +50,42 @@
 <!--METRICS SECTION-->
 <div class="m-4">
   <form [formGroup]="form">
-
     <div class="flex flex-col md:flex-row">
     <div class="w-full flex-1 mx-2 svelte-1l8159u">
       <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Targeted Gender</div>
         <div class="my-2 p-1 flex svelte-1l8159u">
-          <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Choose targeted gender</option>
-            <option value="US">All gender</option>
-            <option value="CA">Male</option>
-            <option value="FR">Female</option>
+          <select [ngClass]="{ 'is__invalid-input': submitted && f['gender'].errors }" id="gender" formControlName="gender" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected value="">Choose targeted gender...</option>
+            <option  *ngFor="let choice of gender" [ngValue]="choice.genderType"> {{choice.genderType}}</option>
           </select>
-          </div>
-    </div>
-    </div>
-    <div class="flex flex-col md:flex-row">
-    <div class="w-full flex-1 mx-2 svelte-1l8159u">
-    <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Industry</div>
-      <div class="my-2 p-1 flex svelte-1l8159u">
-        <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Choose campaign industry</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
-        </select>
         </div>
+        <div *ngIf="submitted && f['gender'].errors" class="is__invalid-error">
+          <div *ngIf="f['gender'].errors['required']">Required field</div>
+        </div>
+      </div>
     </div>
-    </div>
-
 
     <div class="flex flex-col md:flex-row">
     <div class="w-full flex-1 mx-2 svelte-1l8159u">
     <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Minimum Age</div>
-    <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-        <input placeholder="E.g 18" maxlength="2" minlength="2" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"> </div>
+      <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+        <input [ngClass]="{ 'is__invalid-input': submitted && f['minAge'].errors }" formControlName="minAge"  placeholder="E.g 18" maxlength="2" minlength="2" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+       </div>
+       <div *ngIf="submitted && f['minAge'].errors" class="is__invalid-error">
+        <div *ngIf="f['minAge'].errors['required']">Required field</div>
+        <div *ngIf="f['minAge'].errors['pattern']">Provide a valid age</div>
+      </div>
     </div>
+
     <div class="w-full flex-1 mx-2 svelte-1l8159u">
     <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Maximum Age</div>
-    <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-        <input placeholder="E.g 70" maxlength="2" class="p-1 px-2 appearance-none outline-none w-full text-gray-800"> </div>
+      <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+          <input [ngClass]="{ 'is__invalid-input': submitted && f['maxAge'].errors }" formControlName="maxAge"  placeholder="E.g 70" maxlength="3" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+      </div>
+      <div *ngIf="submitted && f['maxAge'].errors" class="is__invalid-error">
+        <div *ngIf="f['maxAge'].errors['required']">Required field</div>
+        <div *ngIf="f['maxAge'].errors['pattern']">Provide a valid age</div>
+      </div>
     </div>
     </div>
 
@@ -97,26 +93,26 @@
       <div class="w-full flex-1 mx-2 svelte-1l8159u">
       <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Camapign start time</div>
         <div class="my-2 p-1 flex svelte-1l8159u">
-          <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Choose campaign industry</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select [ngClass]="{ 'is__invalid-input': submitted && f['startTime'].errors }" formControlName="startTime" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected value="">Select campaign start time..</option>
+            <option  *ngFor="let time of times" value={{time.time}}>{{time.name}}</option>
           </select>
+          </div>
+          <div *ngIf="submitted && f['startTime'].errors" class="is__invalid-error">
+            <div *ngIf="f['startTime'].errors['required']">Required field</div>
           </div>
       </div>
       <div class="w-full flex-1 mx-2 svelte-1l8159u">
       <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Camapign end time</div>
         <div class="my-2 p-1 flex svelte-1l8159u">
-          <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Choose campaign industry</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select [ngClass]="{ 'is__invalid-input': submitted && f['endTime'].errors }" formControlName="endTime" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected value="">Select campaign end time..</option>
+            <option  *ngFor="let time of times" value={{time.time}}>{{time.name}}</option>
           </select>
-          </div>
+        </div>
+        <div *ngIf="submitted && f['endTime'].errors" class="is__invalid-error">
+          <div *ngIf="f['endTime'].errors['required']">Required field</div>
+        </div>
         </div>
       </div>
 
@@ -124,30 +120,30 @@
     <div class="w-full flex-1 mx-2 svelte-1l8159u">
     <div class="my-2 p-1 flex svelte-1l8159u">
       <div class="flex items-center">
-        <input id="remember-me" class="border-gray-600 bg-white cursor-pointer" name="remember-me" type="checkbox" />
+        <input id="remember-me" formControlName="location" (change)="geoFence($event)" class="border-gray-600 bg-white cursor-pointer" name="remember-me" type="checkbox" />
         <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-night-200 font-semibold"> Geofence this campaign? </label>
       </div>
     </div>
     </div>
     </div>
 
-
     <div class="flex p-2 mt-4">
-    <button class="text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
-    hover:bg-gray-200
-    bg-gray-100
-    text-gray-700
-    border duration-200 ease-in-out
-    border-gray-600 transition">Previous</button>
+      <button  routerLink="/new-campaign/files" type="button" class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
+        Previous
+      </button>
     <div class="flex-auto flex flex-row-reverse">
-      <button class="text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer
-    hover:bg-400-600
-    bg-primary-600
-    text-teal-100
-    border duration-200 ease-in-out
-    border-primary-600 transition"
-    (click)="next()"
-    >Next</button>
+
+    <button *ngIf="loading" disabled type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+      <svg aria-hidden="true" role="status" class="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"></path>
+      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"></path>
+      </svg>
+      Loading...
+    </button>
+    <button (click)="saveData()" *ngIf="!loading" type="button" class="text-white bg-blue-700 hover:bg-blue-800 cursor-pointer focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+       <span *ngIf="!geofencing">Continue</span>
+       <span *ngIf="geofencing">Add Location</span>
+    </button>
 
     </div>
     </div>

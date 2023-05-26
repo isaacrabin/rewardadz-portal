@@ -48,7 +48,6 @@ export class PrimaryCampaignsComponent implements OnInit {
        this.spinner.hide()
        let campaignlist = response.data
        this.rows = campaignlist.reverse();
-       console.log(this.rows)
        this.page.collectionSize = this.rows.length;
        this.noCampaign = this.rows.length;
 
@@ -64,9 +63,12 @@ export class PrimaryCampaignsComponent implements OnInit {
         this.toastr.info("Your session expired","");
         this.router.navigate(['./auth/sign-in']);
       }
-      if(err.status === 401){
+      else if(err.status === 401){
         this.toastr.info("Contact your admin for access to this page","");
         this.router.navigate(['/dashboard/analytics']);
+      }
+      else{
+        this.toastr.error("Error: ",err);
       }
       }
   });

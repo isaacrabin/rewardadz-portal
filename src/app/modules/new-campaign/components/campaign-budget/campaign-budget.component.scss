@@ -1,3 +1,11 @@
 .active{
   @apply border-green-700 bg-green-700 border-green-700 text-white rounded-full;
 }
+.is__invalid-input {
+  border-color: #e11d48;
+}
+
+.is__invalid-error {
+  color: #e11d48;
+  @apply px-1 pt-1 text-xs;
+}

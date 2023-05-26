@@ -92,6 +92,7 @@ export class CampaignDetailsComponent implements OnInit {
       tag
     } = this.detailsForm.value;
     const userId = sessionStorage.getItem('userId');
+    const orgEmail = sessionStorage.getItem('orgEmail');
 
     if (this.detailsForm.invalid) {
       this.toastr.warning("Provide all required fields");
@@ -108,11 +109,17 @@ export class CampaignDetailsComponent implements OnInit {
         type: campaignCategory,
         linkURL:linkUrl
       }
+      const pusblishPayload = {
+        campaign_name: name,
+        organization_name: industryName,
+        org_email: orgEmail
+      }
       this.service.newStep1(userId,payload).subscribe({
         next: (resp: any) => {
           this.loading = false
           if(resp.success === true){
-            sessionStorage.setItem("campaignAddress",resp.data._id)
+            sessionStorage.setItem("campaignAddress",resp.data._id);
+            sessionStorage.setItem('publishPayload',JSON.stringify(pusblishPayload));
             this.toastr.success('Campaign details saved successfully','');
             this.router.navigate(['new-campaign/files'])
             this.detailsForm.reset();
@@ -126,9 +133,12 @@ export class CampaignDetailsComponent implements OnInit {
           this.toastr.info("Your session expired","");
           this.router.navigate(['./auth/sign-in']);
         }
-        if(err.status === 401){
+        else if(err.status === 401){
           this.toastr.info("Contact your admin for access to this page","");
           this.router.navigate(['/dashboard/analytics']);
+        }
+        else{
+          this.toastr.error(err);
         }
         }
     });

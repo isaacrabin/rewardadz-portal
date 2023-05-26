@@ -13,7 +13,7 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot({progressBar:true}),],
+    ToastrModule.forRoot({progressBar:false}),],
   exports: [
     ResponsiveHelperComponent,
     FormsModule,

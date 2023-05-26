@@ -5,22 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './core/interceptor/app.interceptor';
 import { AgmCoreModule } from '@agm/core';
+import { TokenInterceptor } from './core/interceptor/token.interceptor';
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,BrowserAnimationsModule,
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    SharedModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBG3YReMMbQ9XhcsxJzNvTZwK3Qbn5pebE' + '&libraries=visualization'
    }),
-
-     AppRoutingModule, SharedModule],
+   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: TokenInterceptor,
       multi: true,
     }
   ],

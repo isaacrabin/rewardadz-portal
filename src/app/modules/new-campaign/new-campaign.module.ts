@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { NewCampaignRoutingModule } from './new-campaign-routing.module';
-import { CampaignDetailsComponent } from './components/campaign-details/campaign-details.component';
-import { CamapignAssetsComponent } from './components/campaign-assets/camapign-assets.component';
-import { CampaignMetricsComponent } from './components/campaign-metrics/campaign-metrics.component';
-import { CampaignBudgetComponent } from './components/campaign-budget/campaign-budget.component';
-import { LocationComponent } from './components/location/location.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { ApiService } from './service/api.service';
-import {FilePickerModule} from 'ngx-awesome-uploader';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CamapignAssetsComponent } from './components/campaign-assets/camapign-assets.component';
+import { CampaignBudgetComponent } from './components/campaign-budget/campaign-budget.component';
+import { CampaignDetailsComponent } from './components/campaign-details/campaign-details.component';
+import { CampaignMetricsComponent } from './components/campaign-metrics/campaign-metrics.component';
+import { LocationComponent } from './components/location/location.component';
+import { NewCampaignRoutingModule } from './new-campaign-routing.module';
+import { ApiService } from './service/api.service';
+import { TokenInterceptor } from '../../core/interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,15 +21,15 @@ import {FilePickerModule} from 'ngx-awesome-uploader';
     CamapignAssetsComponent,
     CampaignMetricsComponent,
     CampaignBudgetComponent,
-    LocationComponent
+    LocationComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     NewCampaignRoutingModule,
-    FilePickerModule,
     AngularSvgIconModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBG3YReMMbQ9XhcsxJzNvTZwK3Qbn5pebE',
@@ -37,7 +37,12 @@ import {FilePickerModule} from 'ngx-awesome-uploader';
     }),
   ],
   providers:[
-    ApiService
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
   ]
 })
 export class NewCampaignModule { }

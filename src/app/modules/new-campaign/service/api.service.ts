@@ -27,10 +27,10 @@ export class ApiService {
 
   }
 
-  newStep21(id:any, payload: any):Observable<any> {
+  newStep21(payload: FormData,id:any):Observable<any> {
     const address  = id
     return this.http.post(
-      `${environment.baseurl}campaigns/create/step2/icon/${address}`, payload,
+      `${environment.baseurl}campaigns/create/step2/icon/${address}`,payload,
       {
         reportProgress: true,
         observe: 'events'
@@ -62,7 +62,8 @@ export class ApiService {
     }
     return throwError(errorMessage);
   }
-  newStep22(id:any, payload: any): Observable<any> {
+
+  newStep22(payload: FormData,id:any,): Observable<any> {
     const address  = id
     return this.http.post(
       `${environment.baseurl}campaigns/create/step2/file/${address}`, payload,
@@ -86,10 +87,34 @@ export class ApiService {
     );
   }
 
+  fetchCampaignById(id: any){
+    const address  = id
+    return this.http.get<any>(
+      `${environment.baseurl}campaigns/search/details/${address}`
+    );
+
+  }
+
   completeAndPublish(id:any, payload:any){
     const address  = id
     return this.http.post(
       `${environment.baseurl}schedule/campaign/${address}`,payload
     );
   }
+
+   // API url
+   baseApiUrl = 'https://file.io';
+
+   // Returns an observable
+   upload(file: any): Observable<any> {
+     // Create form data
+     const formData = new FormData();
+
+     // Store form name as "file" with file data
+     formData.append('file', file, file.name);
+
+     // Make http post request over api
+     // with formData as req
+     return this.http.post(this.baseApiUrl, formData);
+   }
 }

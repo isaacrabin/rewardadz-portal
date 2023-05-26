@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NftComponent } from './pages/nft/nft.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { DashboardComponent } from './dashboard.component';
 import { NftSingleCardComponent } from './components/nft/nft-single-card/nft-single-card.component';
@@ -35,6 +35,8 @@ import { CampaignClicksComponent } from './components/campaign-clicks/campaign-c
 import { CampaignGenderComponent } from './components/campaign-gender/campaign-gender.component';
 import { ConversionsImpressionsComponent } from './components/conversions-impressions/conversions-impressions.component';
 import { AgeBreakdownComponent } from './components/age-breakdown/age-breakdown.component';
+import { TokenInterceptor } from 'src/app/core/interceptor/token.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -75,6 +77,15 @@ import { AgeBreakdownComponent } from './components/age-breakdown/age-breakdown.
    }),
   ],
 
-  providers:[CampaignService, TransactionService, TeamService]
+  providers:[
+    CampaignService,
+    TransactionService,
+    TeamService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+  ]
 })
 export class DashboardModule {}
