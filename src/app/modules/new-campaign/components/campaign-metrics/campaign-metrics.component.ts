@@ -83,7 +83,7 @@ export class CampaignMetricsComponent implements OnInit {
   }
 
   next(){
-    this.router.navigate(['new-campaign/location'])
+    this.router.navigate(['app/new-campaign/location'])
   }
 
   saveData(){
@@ -91,57 +91,64 @@ export class CampaignMetricsComponent implements OnInit {
     const {gender, startTime, endTime, maxAge, minAge, location} = this.form.value;
     const campaignAddress = sessionStorage.getItem('campaignAddress');
     const publishPayload = JSON.parse(sessionStorage.getItem('publishPayload')?? '{}')
-    if(!this.geofencing){
-      this.loading = true;
-      const payload = {
-        gender : gender,
-        ageMin: minAge,
-        ageMax: maxAge,
-        type: "primary",
-      }
-      sessionStorage.setItem('metricsPayload',JSON.stringify(payload));
-      Object.assign(publishPayload,{ start_time: startTime ,
-        end_time: endTime})
-      this.service.newStep3(campaignAddress,payload).subscribe({
-        next: (res)=> {
-          this.loading = false;
-          sessionStorage.setItem('publishPayload', JSON.stringify(publishPayload))
-          this.toastr.success('Campaign metrics set successfully','');
-          this.router.navigate(['./new-campaign/budget']);
-        },
-        error: (err) => {
-          if(err.status === 403){
-            this.toastr.info("Your session expired","");
-            this.router.navigate(['./auth/sign-in']);
-          }
-          else if(err.status === 401){
-            this.toastr.info("Contact your admin for access to this page","");
-            this.router.navigate(['/dashboard/analytics']);
-          }
-          else{
-            this.toastr.error(err);
-          }
-        }
-      })
 
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
     }
     else{
-      this.loading = true
-      const payload = {
-        gender : gender,
-        ageMin: minAge,
-        ageMax: maxAge,
-        type: 'primary',
-        country: ''
+      if(!this.geofencing){
+        this.loading = true;
+        const payload = {
+          gender : gender,
+          ageMin: minAge,
+          ageMax: maxAge,
+          type: "primary",
+        }
+        sessionStorage.setItem('metricsPayload',JSON.stringify(payload));
+        Object.assign(publishPayload,{ start_time: startTime ,
+          end_time: endTime})
+        this.service.newStep3(campaignAddress,payload).subscribe({
+          next: (res)=> {
+            this.loading = false;
+            sessionStorage.setItem('publishPayload', JSON.stringify(publishPayload))
+            this.toastr.success('Campaign metrics set successfully','');
+            this.router.navigate(['./app/new-campaign/budget']);
+          },
+          error: (err) => {
+            if(err.status === 403){
+              this.toastr.info("Your session expired","");
+              this.router.navigate(['./auth/sign-in']);
+            }
+            else if(err.status === 401){
+              this.toastr.info("Contact your admin for access to this page","");
+              this.router.navigate(['/app/dashboard/analytics']);
+            }
+            else{
+              this.toastr.error(err);
+            }
+          }
+        })
+
       }
-      Object.assign(publishPayload,{ start_time: startTime,
-      end_time: endTime})
-      this.service.newStep3(campaignAddress,payload).subscribe((resp:any) =>{
-        this.loading = false
-        sessionStorage.setItem('publishPayload', JSON.stringify(publishPayload))
-        this.toastr.success('Campaign metrics set successfully','');
-        this.router.navigate(['./new-campaign/location']);
-      })
+      else{
+        this.loading = true
+        const payload = {
+          gender : gender,
+          ageMin: minAge,
+          ageMax: maxAge,
+          type: 'primary',
+          country: ''
+        }
+        Object.assign(publishPayload,{ start_time: startTime,
+        end_time: endTime})
+        this.service.newStep3(campaignAddress,payload).subscribe((resp:any) =>{
+          this.loading = false
+          sessionStorage.setItem('publishPayload', JSON.stringify(publishPayload))
+          this.toastr.success('Campaign metrics set successfully','');
+          this.router.navigate(['./app/new-campaign/location']);
+        })
+      }
     }
 
   }

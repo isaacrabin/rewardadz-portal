@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/core/services/auth.service';
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
+
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -28,12 +30,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     AuthRoutingModule,
     HttpClientModule,
+
     AngularSvgIconModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+
 
   ],
+  schemas:[NO_ERRORS_SCHEMA],
   providers:[AuthService]
 })
 export class AuthModule {}

@@ -7,15 +7,15 @@
   </div>
   <div class="flex-col h-[420px] rounded-lg bg-white px-8 py-8 dark:bg-night-700 sm:flex-row">
     <div id="chart">
-      <apx-chart
-      [series]="chartOptions.series!"
-      [chart]="chartOptions.chart!"
-      [dataLabels]="chartOptions.dataLabels!"
-      [plotOptions]="chartOptions.plotOptions!"
-      [xaxis]="chartOptions.xaxis!"
-      [stroke]="chartOptions.stroke!"
-      [colors]="chartOptions.colors!"
-    ></apx-chart>
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [labels]="chartOptions.labels!"
+          [fill]="chartOptions.fill!"
+          [stroke]="chartOptions.stroke!"
+          [responsive]="chartOptions.responsive!"
+        ></apx-chart>
     </div>
 
 

@@ -68,7 +68,7 @@ export class TeamComponent implements OnInit{
      else{
       // this.loading = false
       this.spinner.hide()
-       this.toastr.error("Error fetching campaigns","")
+       this.toastr.error(response.message,"")
      }
       },
       error: (err) => {

@@ -62,6 +62,7 @@ export class CampaignBudgetComponent implements OnInit{
     this.submitted = true;
       // stop here if form is invalid
       if (this.form.invalid) {
+        this.submitted = false;
         return;
       }
       else{
@@ -99,14 +100,23 @@ export class CampaignBudgetComponent implements OnInit{
       next:(res)=>{
         this.loading = false;
         this.toastr.success('Campaign Added Successfully','')
-        this.router.navigate(['./dashboard/primary-campaigns'])
+        this.router.navigate(['./app/dashboard/primary-campaigns'])
       },
       error: (err) =>{
         this.loading = false;
-        this.toastr.error('Error: ',err.message);
+        if(err.status === 403){
+          this.toastr.info("Your session expired","");
+          this.router.navigate(['./auth/sign-in']);
+        }
+        else if(err.status === 401){
+          this.toastr.info("Contact your admin for access to this page","");
+          this.router.navigate(['/app/dashboard/analytics']);
+        }
+        else{
+          this.toastr.error(err);
+        }
       }
     })
-
   }
 
 }

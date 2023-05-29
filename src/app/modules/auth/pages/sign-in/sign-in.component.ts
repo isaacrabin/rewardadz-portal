@@ -56,7 +56,7 @@ export class SignInComponent implements OnInit {
         switch (resp.success) {
           case true:
             this.toastr.success("Login Success","");
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/app/dashboard']);
             sessionStorage.setItem('profile',JSON.stringify(resp.data));
             sessionStorage.setItem('username',resp.data.account.username);
             sessionStorage.setItem('orgEmail',resp.data.account.email);

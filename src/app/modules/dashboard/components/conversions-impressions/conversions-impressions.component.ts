@@ -3,7 +3,27 @@ import { ChartComponent } from 'ng-apexcharts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CampaignService } from 'src/app/core/services/campaign.service';
-import { ChartOptions } from 'src/app/shared/models/chart-options';
+
+//import { ChartOptions } from 'src/app/shared/models/chart-options';
+
+
+import {
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+  ApexChart,
+  ApexStroke,
+  ApexFill
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+  colors: any;
+  stroke: ApexStroke;
+  fill: ApexFill;
+};
 
 @Component({
   selector: '[app-conversions-impressions]',
@@ -49,48 +69,77 @@ constructor(
   private campaignService: CampaignService
 ) {
 
+    // this.chartOptions = {
+    //   series: [
+    //     {
+    //       name:'Coversion',
+    //       data: []
+    //     }
+    //   ],
+    //   chart: {
+    //     type: "bar",
+    //     height: 430
+    //   },
+    // colors:['#fd7e14'],
+
+    //   plotOptions: {
+    //     bar: {
+    //       horizontal: true,
+    //       dataLabels: {
+    //         position: "top"
+    //       }
+    //     }
+    //   },
+
+
+    //   dataLabels: {
+    //     enabled: true,
+    //     offsetX: -6,
+    //     style: {
+    //       fontSize: "12px",
+    //       colors: ["#fff"]
+    //     }
+    //   },
+    //   stroke: {
+    //     show: true,
+    //     width: 1,
+    //     colors: ["#fff"]
+    //   },
+    //   xaxis: {
+    //     categories: ['Impression', 'Convertion']
+    //   },
+
+
+
+    // };
+
     this.chartOptions = {
-      series: [
-        {
-          name:'Coversion',
-          data: []
-        }
-      ],
+      series: [14, 23],
       chart: {
-        type: "bar",
-        height: 430
-      },
-    colors:['#fd7e14'],
-
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          dataLabels: {
-            position: "top"
-          }
-        }
+        type: "polarArea"
       },
 
-
-      dataLabels: {
-        enabled: true,
-        offsetX: -6,
-        style: {
-          fontSize: "12px",
-          colors: ["#fff"]
-        }
-      },
       stroke: {
-        show: true,
-        width: 1,
         colors: ["#fff"]
       },
-      xaxis: {
-        categories: ['Impression', 'Convertion']
+      colors:["#ed7014", "#1e40af"],
+      fill: {
+        opacity: 0.8,
+        colors:["#ed7014", "#1e40af"],
       },
-
-
-
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
     };
   }
   ngOnInit(): void {
@@ -140,48 +189,77 @@ constructor(
       for (var i = 0; i < male.length; i++) {
       totalMale += male[i] }
 
-      //Plot the gender graph
       this.chartOptions = {
-        series: [
-          {
-
-            data: [this.overalReach,this.overalEngagements]
-          }
-        ],
+        series: [this.overalReach,this.overalEngagements],
         chart: {
-          type: "bar",
-          height: 430
-        },
-      colors:['#fd7e14','#fff'],
-
-        plotOptions: {
-          bar: {
-            horizontal: true,
-            dataLabels: {
-              position: "top"
-            }
-          }
-        },
-
-
-        dataLabels: {
-          enabled: true,
-          offsetX: -6,
-          style: {
-            fontSize: "12px",
-            colors: ["#fff"]
-          }
+          type: "polarArea"
         },
         stroke: {
-          show: true,
-          width: 1,
           colors: ["#fff"]
         },
-        xaxis: {
-          categories: ['Impression', 'Convertion']
+        colors:["#ed7014", "#1e40af"],
+        fill: {
+          opacity: 0.8,
+          colors:["#ed7014", "#1e40af"],
         },
-
+        labels:['Impressions','Conversions'],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 400
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
       };
+
+      //Plot the gender graph
+      // this.chartOptions = {
+      //   series: [
+      //     {
+
+      //       data: [this.overalReach,this.overalEngagements]
+      //     }
+      //   ],
+      //   chart: {
+      //     type: "bar",
+      //     height: 430
+      //   },
+      // colors:['#fd7e14','#fff'],
+
+      //   plotOptions: {
+      //     bar: {
+      //       horizontal: true,
+      //       dataLabels: {
+      //         position: "top"
+      //       }
+      //     }
+      //   },
+
+
+      //   dataLabels: {
+      //     enabled: true,
+      //     offsetX: -6,
+      //     style: {
+      //       fontSize: "12px",
+      //       colors: ["#fff"]
+      //     }
+      //   },
+      //   stroke: {
+      //     show: true,
+      //     width: 1,
+      //     colors: ["#fff"]
+      //   },
+      //   xaxis: {
+      //     categories: ['Impression', 'Convertion']
+      //   },
+
+      // };
   }
      else{
       this.spinner.hide()

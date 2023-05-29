@@ -3,12 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'app',
     loadChildren: () => import('./modules/layout/layout.module').then((m) => m.LayoutModule),
   },
+
   {
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path:'',
+    redirectTo:'auth',
+    pathMatch:'full'
   },
   { path: '**', redirectTo: 'error/404' },
 ];

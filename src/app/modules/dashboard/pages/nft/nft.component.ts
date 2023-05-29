@@ -73,9 +73,7 @@ export class NftComponent implements OnInit {
       for (var i = 0; i < male.length; i++) {
       totalMale += male[i] }
       this.clickLabels = {performanceName,adPerformanceValue};
-      console.log(this.clickLabels)
-
-  //       this.campaignOption = {
+     //       this.campaignOption = {
   //         title:{
   //           text:'Your Campaigns Performance (by Clicks)'
   //         },

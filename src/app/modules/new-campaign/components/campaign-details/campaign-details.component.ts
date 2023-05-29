@@ -121,7 +121,7 @@ export class CampaignDetailsComponent implements OnInit {
             sessionStorage.setItem("campaignAddress",resp.data._id);
             sessionStorage.setItem('publishPayload',JSON.stringify(pusblishPayload));
             this.toastr.success('Campaign details saved successfully','');
-            this.router.navigate(['new-campaign/files'])
+            this.router.navigate(['/app/new-campaign/files'])
             this.detailsForm.reset();
             }
             else{
@@ -135,7 +135,7 @@ export class CampaignDetailsComponent implements OnInit {
         }
         else if(err.status === 401){
           this.toastr.info("Contact your admin for access to this page","");
-          this.router.navigate(['/dashboard/analytics']);
+          this.router.navigate(['/app/dashboard/analytics']);
         }
         else{
           this.toastr.error(err);

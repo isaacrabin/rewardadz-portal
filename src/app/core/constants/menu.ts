@@ -9,7 +9,7 @@ export class Menu {
         {
           icon: 'assets/icons/outline/chart-pie.svg',
           label: 'Dashboard',
-          route: '/dashboard/analytics',
+          route: '/app/dashboard/analytics',
         },
         // {
         //   icon: 'assets/icons/outline/lock-closed.svg',
@@ -32,12 +32,12 @@ export class Menu {
         {
           icon: 'assets/icons/outline/horn.svg',
           label: 'Primary Campaigns',
-          route: '/dashboard/primary-campaigns',
+          route: '/app/dashboard/primary-campaigns',
         },
         {
           icon: 'assets/icons/outline/horn1.svg',
           label: 'Secondary Campaigns',
-          route: '/dashboard/secondary-campaigns',
+          route: '/app/dashboard/secondary-campaigns',
         },
         // {
         //   icon: 'assets/icons/outline/users.svg',
@@ -53,7 +53,7 @@ export class Menu {
         {
           icon: 'assets/icons/outline/money.svg',
           label: 'Expenditure',
-          route: '/dashboard/expenditure',
+          route: '/app/dashboard/expenditure',
         },
         // {
         //   icon: 'assets/icons/outline/rev.svg',
@@ -69,17 +69,17 @@ export class Menu {
         {
           icon: 'assets/icons/outline/users.svg',
           label: 'Team Members',
-          route: '/dashboard/team',
+          route: '/app/dashboard/team',
         },
         {
           icon: 'assets/icons/outline/role.svg',
           label: 'Roles',
-          route: '/dashboard/roles',
+          route: '/app/dashboard/roles',
         },
         {
           icon: 'assets/icons/outline/api.svg',
           label: 'Api Key',
-          route: '/dashboard/api-key',
+          route: '/app/dashboard/api-key',
         },
       ],
     },

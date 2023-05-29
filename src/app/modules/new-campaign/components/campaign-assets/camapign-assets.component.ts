@@ -19,6 +19,9 @@ export class CamapignAssetsComponent implements OnInit {
   loading = false;
   uploadingLogo = false;
   uploadingFile = false;
+  showFirst = true;
+  showSecond = false;
+  goNext = false;
   progress: number = 0;
   iconUrl!: string | ArrayBuffer | null;
   format!: string;
@@ -61,7 +64,7 @@ export class CamapignAssetsComponent implements OnInit {
   }
 
   next(){
-    this.router.navigate(['new-campaign/metrics'])
+    this.router.navigate(['app/new-campaign/metrics'])
   }
 
   addLogo(event: any){
@@ -91,7 +94,9 @@ export class CamapignAssetsComponent implements OnInit {
             this.progress = Math.round(event.loaded / total * 100);
             break;
           case HttpEventType.Response:
-            this.toastr.success('Campaign icon saved successfully','')
+            this.toastr.success('Campaign icon saved successfully','');
+            this.showSecond = true;
+            this.showFirst = false;
             setTimeout(() => {
               this.progress = 0;
             }, 1500);
@@ -135,7 +140,8 @@ export class CamapignAssetsComponent implements OnInit {
             this.progress = Math.round(event.loaded / total * 100);
             break;
           case HttpEventType.Response:
-            this.toastr.success('Campaign file saved successfully','')
+            this.toastr.success('Campaign file saved successfully','');
+            this.goNext = true;
             setTimeout(() => {
               this.progress = 0;
             }, 1500);
@@ -148,7 +154,7 @@ export class CamapignAssetsComponent implements OnInit {
           }
           else if(err.status === 401){
             this.toastr.info("Contact your admin for access to this page","");
-            this.router.navigate(['/dashboard/analytics']);
+            this.router.navigate(['/app/dashboard/analytics']);
           }
           else{
             this.toastr.info('Error: ',err);

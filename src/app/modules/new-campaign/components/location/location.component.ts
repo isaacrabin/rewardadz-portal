@@ -66,7 +66,7 @@ export class LocationComponent implements OnInit{
   }
 
   next(){
-    this.router.navigate(['new-campaign/budget'])
+    this.router.navigate(['app/new-campaign/budget'])
   }
 
   onMapLoad(mapInstance: google.maps.Map) {
