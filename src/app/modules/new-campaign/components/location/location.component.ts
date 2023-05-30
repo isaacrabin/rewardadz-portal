@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../../service/api.service';
 
 @Component({
   selector: 'app-location',
@@ -16,73 +19,141 @@ export class LocationComponent implements OnInit{
   public map!: google.maps.Map;
   private heatmap!: google.maps.visualization.HeatmapLayer;
 
-  lat = -1.2344;
-  long = 36.456;
-  lat_lng = new Array();
+  latitude: any = 0;
+  longitude: any = 0;
+  geoCoder!: google.maps.Geocoder;
+  zoom!: number;
+
+  selectedLocation: any;
+  campaignAddress: any;
+  campaignRadius!: any;
+  radiusToMap!: number;
+  address!: string;
+
+  loading = false;
+
+  @ViewChild('search', { static: false })
+  public searchElementRef!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private toastr: ToastrService,
+    private service: ApiService,
     ){
-   this.form = this.fb.group({})
-
-   this.gradient = [
-    'rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-  ]
-
-  this.allcoords = [
-    {lat: 37.782, lng: -122.447},
-    {lat: 37.782, lng: -122.445},
-    {lat: 37.782, lng: -122.443},
-    {lat: 37.782, lng: -122.441},
-    {lat: 37.782, lng: -122.439},
-    {lat: 37.782, lng: -122.437},
-    {lat: 37.782, lng: -122.435},
-    {lat: 37.785, lng: -122.447},
-    {lat: 37.785, lng: -122.445},
-    {lat: 37.785, lng: -122.443},
-    {lat: 37.785, lng: -122.441},
-    {lat: 37.785, lng: -122.439},
-    {lat: 37.785, lng: -122.437},
-    {lat: 37.785, lng: -122.435}
-  ];
+   this.form = this.fb.group({
+    radius: [''],
+    selectedLocation:['']
+   })
   }
 
   ngOnInit(): void {
+      //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        this.setCurrentLocation();
+        this.geoCoder = new google.maps.Geocoder;
 
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            //get the place result
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+            //verify result
+            if (place.geometry === undefined || place.geometry === null) {
+              return;
+            }
+
+            //set latitude, longitude and zoom
+            this.latitude = place.geometry.location?.lat();
+            this.longitude = place.geometry.location?.lng();
+            this.zoom = 7;
+          });
+        });
+      });
+
+  }
+
+   //Lauch locatipn Setup
+   launcLocationSetup(){
+    window.location.reload()
+  }
+
+   // Get Current Location Coordinates
+   private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+  setCurrentNewLocation() {
+    this.loading = true;
+    const formData = this.form.value;
+    this.campaignRadius = formData.radius;
+    if ('geolocation' in navigator) {
+        if(this.campaignRadius < 10){
+          this.radiusToMap = 20
+        }
+        else if(this.campaignRadius > 20){
+          this.radiusToMap = 10
+        }
+        else{
+          this.radiusToMap = parseInt(this.campaignRadius)
+        }
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = this.latitude
+        this.longitude = this.longitude
+        this.zoom = this.radiusToMap;
+      });
+
+      this.goToNext();
+    }
+  }
+
+  getAddress(latitude: any, longitude: any) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: any, status) => {
+        if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
   }
 
   next(){
     this.router.navigate(['app/new-campaign/budget'])
   }
 
-  onMapLoad(mapInstance: google.maps.Map) {
-    this.map = mapInstance;
-    // here our in other method after you get the coords; but make sure map is loaded
-    for (var i = 0; i < this.allcoords.length; i++) {
-      const coordi = this.allcoords[i];
-      var myLatlng = new google.maps.LatLng(coordi.lat, coordi.long);
-      this.lat_lng.push(myLatlng);
+  goToNext(){
+    const payload = {
+      campaignLat : this.latitude,
+      campaignLong : this.longitude,
+      camapaignRadius: this.campaignRadius * 1000
     }
-    const coords: google.maps.LatLng[] = this.lat_lng;
-    this.heatmap = new google.maps.visualization.HeatmapLayer({
-       map: this.map,
-       data: coords
-    });
-    this.heatmap.setMap(this.map);
-    this.heatmap.set('gradient', this.heatmap.get('gradient') ? null : this.gradient);
-     }
+
+    this.campaignAddress = sessionStorage.getItem('campaignAddress');
+    this.service.addLocationSetup(this.campaignAddress,payload).subscribe((resp:any) =>{
+      this.loading = false;
+
+      this.toastr.success('Location setup successful','');
+      this.router.navigate(['/app/new-campaign/budget'])
+
+    })
+  }
+
+
+
 }

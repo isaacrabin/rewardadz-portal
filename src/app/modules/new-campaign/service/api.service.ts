@@ -102,19 +102,10 @@ export class ApiService {
     );
   }
 
-   // API url
-   baseApiUrl = 'https://file.io';
-
-   // Returns an observable
-   upload(file: any): Observable<any> {
-     // Create form data
-     const formData = new FormData();
-
-     // Store form name as "file" with file data
-     formData.append('file', file, file.name);
-
-     // Make http post request over api
-     // with formData as req
-     return this.http.post(this.baseApiUrl, formData);
-   }
+  addLocationSetup(id:any,payload: any){
+    const address  = id
+    return this.http.patch(
+      `${environment.baseurl}campaign/metrics/add/location/${address}`,payload
+    );
+  }
 }

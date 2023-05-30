@@ -41,9 +41,8 @@ export class NftAuctionsTableItemComponent implements OnInit {
       this.loading = false;
       this.toastr.success('Deleted successfully','');
       this.showdeleteModal = false;
-      window.location.reload()
-
-      })
+      window.location.reload();
+    })
   }
 
   hideDelModal(){
