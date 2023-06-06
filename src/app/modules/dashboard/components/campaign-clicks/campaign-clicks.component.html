@@ -8,7 +8,7 @@
   </div>
   <div class="flex-col h-[420px] rounded-lg bg-white px-8 py-8 dark:bg-night-700 sm:flex-row">
     <!-- Card Header -->
-    <div class="mb-2 flex items-center justify-between">
+    <div class="mb-2 flex items-center justify-between"  *ngIf="dataLength > 0">
       <div class="flex-col">
         <div class="flex items-center space-x-1">
           <span class="text-lg font-semibold text-gray-400 dark:text-night-300">Best performance</span>
@@ -23,9 +23,10 @@
 
     </div>
 
+
     <!-- Card Body -->
     <apx-chart
-
+      *ngIf="dataLength > 0"
       [series]="chartOptions.series!"
       [chart]="chartOptions.chart!"
       [legend]="chartOptions.legend!"
@@ -40,7 +41,15 @@
       [grid]="chartOptions.grid!"
       [title]="chartOptions.title!">
     </apx-chart>
+
     <!-- end Chart -->
+
+    <div class="flex justify-center" *ngIf="dataLength === 0">
+      <div class="flex-col">
+        <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+        <p class="text-sm text-gray-400 dark:text-night-200">No data</p>
+      </div>
+    </div>
 
 
   </div>

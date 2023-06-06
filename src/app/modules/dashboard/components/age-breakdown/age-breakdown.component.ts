@@ -37,6 +37,8 @@ export class AgeBreakdownComponent implements OnInit{
   age29To34 = 0;
   above35 = 0;
   below18 = 0;
+  dataLength = 0;
+
 
   mobileUsers= [];
 
@@ -46,6 +48,7 @@ export class AgeBreakdownComponent implements OnInit{
     private campaignService: CampaignService,
 
   ) {
+    this.dataLength = 1;
     this.chartOptions = {
       series: [1103,500,480,201],
       chart: {

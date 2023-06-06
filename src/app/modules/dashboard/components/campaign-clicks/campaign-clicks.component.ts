@@ -29,6 +29,8 @@ export class CampaignClicksComponent implements OnInit{
   clickLabels: any;
   maxClicks: string = '';
 
+  dataLength = 0;
+
   constructor(
     private themeService: ThemeService,
     private spinner: NgxSpinnerService,
@@ -70,10 +72,6 @@ export class CampaignClicksComponent implements OnInit{
         },
       },
     };
-
-
-
-
 
   }
 
@@ -130,6 +128,8 @@ export class CampaignClicksComponent implements OnInit{
           for (var i = 0; i < male.length; i++) {
           totalMale += male[i] }
           this.clickLabels = {performanceName,adPerformanceValue};
+
+          this.dataLength = adPerformanceValue.length;
 
           this.maxClicks = Math.max(...adPerformanceValue).toLocaleString();
           this.chartOptions = {

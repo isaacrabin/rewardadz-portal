@@ -29,12 +29,32 @@
       <tbody>
         <ngx-spinner bdColor = "#fff" size = "medium" color = "#1520a6" type = "ball-circus" [fullScreen] = "false"><p style="color: white" ></p>Loading...</ngx-spinner>
         <tr
-          *ngFor="let campaign of rows"
+          *ngFor="let campaign of rows
+          | paginate: { id: 'foo',
+          itemsPerPage: this.page.pageSize,
+          currentPage: this.page.currentPage,
+          totalItems: this.page.collectionSize};  let i = index"
           [auction]="campaign"
           nft-auctions-table-item
           class="border-b border-dashed border-gray-200 hover:bg-gray-100 dark:border-night-500 dark:hover:bg-night-600"></tr>
       </tbody>
       <!--end::Table body-->
     </table>
+    <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+      <pagination-controls
+      id="foo"
+      class="pull-right"
+      (pageChange)="this.page.currentPage = $event"
+      [maxSize]=10
+      [directionLinks]="true"
+      [autoHide]="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+      >directionLinks
+    </pagination-controls>
+  </div>
   </div>
 </div>

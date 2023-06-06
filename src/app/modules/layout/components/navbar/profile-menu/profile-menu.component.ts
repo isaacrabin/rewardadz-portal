@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileMenuComponent implements OnInit {
   public isMenuOpen = false;
+  username = sessionStorage.getItem('username');
+  email = sessionStorage.getItem('orgEmail');
 
   constructor() {}
 

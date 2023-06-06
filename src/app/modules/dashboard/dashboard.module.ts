@@ -36,6 +36,9 @@ import { CampaignGenderComponent } from './components/campaign-gender/campaign-g
 import { ConversionsImpressionsComponent } from './components/conversions-impressions/conversions-impressions.component';
 import { AgeBreakdownComponent } from './components/age-breakdown/age-breakdown.component';
 import { TokenInterceptor } from 'src/app/core/interceptor/token.interceptor';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { LoaderComponent } from './components/loader/loader.component';
+
 
 
 @NgModule({
@@ -51,6 +54,7 @@ import { TokenInterceptor } from 'src/app/core/interceptor/token.interceptor';
     PrimaryCampaignsComponent,
     SecondaryCampaignsComponent,
     ExpenditureComponent,
+
     RevenueComponent,
     TeamComponent,
     RolesComponent,
@@ -64,18 +68,22 @@ import { TokenInterceptor } from 'src/app/core/interceptor/token.interceptor';
     CampaignGenderComponent,
     ConversionsImpressionsComponent,
     AgeBreakdownComponent,
+    LoaderComponent,
+
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
     HttpClientModule,
+    NgxPaginationModule,
     NgApexchartsModule,
     AngularSvgIconModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBG3YReMMbQ9XhcsxJzNvTZwK3Qbn5pebE' + '&libraries=visualization'
    }),
   ],
+
 
   providers:[
     CampaignService,

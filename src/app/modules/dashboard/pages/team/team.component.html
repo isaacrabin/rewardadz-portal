@@ -10,7 +10,7 @@
   </div>
 
   <div class="relative overflow-x-auto">
-    <table class="w-full table-auto">
+    <table class="w-full table-auto" [hidden]="noTeam === true">
       <!--Table head-->
       <thead class="text-xs uppercase text-gray-400 dark:text-night-300">
         <tr>
@@ -33,5 +33,11 @@
       </tbody>
       <!--end::Table body-->
     </table>
+    <div class="flex justify-center" *ngIf="noTeam">
+      <div class="flex-col">
+        <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+        <p class="text-sm text-gray-400 dark:text-night-200">No member</p>
+      </div>
+    </div>
   </div>
 </div>

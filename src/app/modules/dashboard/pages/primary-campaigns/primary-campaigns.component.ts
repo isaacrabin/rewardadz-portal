@@ -15,6 +15,8 @@ export class PrimaryCampaignsComponent implements OnInit {
   public activeAuction: Nft[] = [];
 
   rows: any = [];
+  items = [];
+  pageOfItems!: Array<any>;
 
   noCampaign: any;
   activeCampaign: any;
@@ -24,6 +26,11 @@ export class PrimaryCampaignsComponent implements OnInit {
     collectionSize:0,
     pageSize:10
   };
+
+  // page: number = 1;
+  // count: number = 0;
+  // tableSize: number = 7;
+  // tableSizes: any = [3, 6, 9, 12];
 
 
   constructor(
@@ -51,7 +58,7 @@ export class PrimaryCampaignsComponent implements OnInit {
        this.spinner.hide()
        let campaignlist = response.data
        this.rows = campaignlist.reverse();
-       this.page.collectionSize = this.rows.length;
+      //  this.page.collectionSize = this.rows.length;
        const activeStatus =this.rows.filter((data: any) => data.status === true);
        this.activeCampaign = activeStatus.length;
        this.service.setActiveAds(this.activeCampaign);
@@ -78,6 +85,16 @@ export class PrimaryCampaignsComponent implements OnInit {
       }
   });
 
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+
+  }
+  onTableSizeChange(event: any): void {
+    this.page.collectionSize = event.target.value;
+    this.page.currentPage = 1;
+    // this.fetchPosts();
   }
 
 }

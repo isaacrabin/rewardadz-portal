@@ -8,6 +8,7 @@
   <div class="flex-col h-[420px] rounded-lg bg-white px-8 py-8 dark:bg-night-700 sm:flex-row">
     <div id="chart">
       <apx-chart
+      *ngIf="dataLength > 0"
       [series]="chartOptions.series!"
       [chart]="chartOptions.chart!"
       [labels]="chartOptions.labels!"
@@ -16,7 +17,15 @@
       [plotOptions]="chartOptions.plotOptions!"
       [responsive]="chartOptions.responsive!"
     ></apx-chart>
+    <div class="flex justify-center" *ngIf="dataLength === 0">
+      <div class="flex-col">
+        <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+        <p class="text-sm text-gray-400 dark:text-night-200">No data</p>
+      </div>
     </div>
+    </div>
+
+
 
 
   </div>

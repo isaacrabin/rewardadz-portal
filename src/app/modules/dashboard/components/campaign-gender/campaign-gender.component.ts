@@ -50,6 +50,7 @@ export class CampaignGenderComponent implements OnInit{
   overalEngagements: any;
   overalClick: any;
   clickLabels: any;
+  dataLength = 0;
 
 
   constructor(
@@ -143,6 +144,11 @@ export class CampaignGenderComponent implements OnInit{
       totalMale += male[i] }
       this.clickLabels = {performanceName,adPerformanceValue};
 
+      if(totalFemale === 0 && totalMale === 0){
+        this.dataLength = 0;
+      }
+      else{
+        this.dataLength = 1;
       //Plot the gender graph
       this.chartOptions = {
         series: [totalMale, totalFemale],
@@ -181,6 +187,7 @@ export class CampaignGenderComponent implements OnInit{
         ]
 
       };
+      }
   }
      else{
       this.spinner.hide()

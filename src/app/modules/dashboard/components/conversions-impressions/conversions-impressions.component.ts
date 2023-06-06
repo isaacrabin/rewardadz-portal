@@ -33,16 +33,7 @@ export type ChartOptions = {
 export class ConversionsImpressionsComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-
-  // rows = [];
-  // totalPrimaryCampaigns = 0;
-  // activeCampaign = 0;
-  // myCampaignAddress = '';
-  // overalReach: any;
-  // conversion_rate: any;
-  // overalEngagements: any;
-  // overalClick: any;
-  // clickLabels: any;
+  dataLength  = 0;
 
   userId : string = '';
   loading = false;
@@ -69,49 +60,7 @@ constructor(
   private campaignService: CampaignService
 ) {
 
-    // this.chartOptions = {
-    //   series: [
-    //     {
-    //       name:'Coversion',
-    //       data: []
-    //     }
-    //   ],
-    //   chart: {
-    //     type: "bar",
-    //     height: 430
-    //   },
-    // colors:['#fd7e14'],
 
-    //   plotOptions: {
-    //     bar: {
-    //       horizontal: true,
-    //       dataLabels: {
-    //         position: "top"
-    //       }
-    //     }
-    //   },
-
-
-    //   dataLabels: {
-    //     enabled: true,
-    //     offsetX: -6,
-    //     style: {
-    //       fontSize: "12px",
-    //       colors: ["#fff"]
-    //     }
-    //   },
-    //   stroke: {
-    //     show: true,
-    //     width: 1,
-    //     colors: ["#fff"]
-    //   },
-    //   xaxis: {
-    //     categories: ['Impression', 'Convertion']
-    //   },
-
-
-
-    // };
 
     this.chartOptions = {
       series: [14, 23],
@@ -188,6 +137,8 @@ constructor(
       var totalMale = 0;
       for (var i = 0; i < male.length; i++) {
       totalMale += male[i] }
+      const cdata = this.overalReach;
+      this.dataLength = cdata;
 
       this.chartOptions = {
         series: [this.overalReach,this.overalEngagements],

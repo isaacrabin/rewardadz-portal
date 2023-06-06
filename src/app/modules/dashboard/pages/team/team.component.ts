@@ -61,14 +61,16 @@ export class TeamComponent implements OnInit{
         this.rows = response.data;
         this.service.teamMembers = response.data;
         const totalUsers = this.profileInfo.length;
+        console.log('Test',this.noTeam)
         if(totalUsers === 0){
           this.noTeam = true;
         }
      }
      else{
       // this.loading = false
+      this.noTeam = true;
       this.spinner.hide()
-       this.toastr.error(response.message,"")
+      //  this.toastr.error(response.message,"")
      }
       },
       error: (err) => {
@@ -103,6 +105,7 @@ export class TeamComponent implements OnInit{
           this.profileInfo = resp.data;
           this.service.teamMembers = resp.data;
           const totalUser = this.profileInfo.length;
+          this.noTeam = true;
           if(totalUser === 0){
             this.noTeam = true;
           }
