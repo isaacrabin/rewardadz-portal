@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -52,7 +52,7 @@ export class CampaignBudgetComponent implements OnInit{
       next:(resp)=>{
         this.cname = resp.data.details.name
       },
-      error:(err)=>{
+      error:(err: HttpErrorResponse)=>{
         if(err.status === 403){
           this.toastr.info("Your session expired","");
           this.router.navigate(['./auth/sign-in']);
@@ -62,7 +62,7 @@ export class CampaignBudgetComponent implements OnInit{
           this.router.navigate(['/app/dashboard/analytics']);
         }
         else{
-          this.toastr.error(err);
+          this.toastr.error(err.message);
         }
       }
     })

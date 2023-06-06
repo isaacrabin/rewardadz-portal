@@ -14,6 +14,8 @@ import { LocationComponent } from './components/location/location.component';
 import { NewCampaignRoutingModule } from './new-campaign-routing.module';
 import { ApiService } from './service/api.service';
 import { TokenInterceptor } from '../../core/interceptor/token.interceptor';
+import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
+import { SurveyQuestionsComponent } from './components/survey-questions/survey-questions.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { TokenInterceptor } from '../../core/interceptor/token.interceptor';
     CampaignMetricsComponent,
     CampaignBudgetComponent,
     LocationComponent,
+    VideoQuestionsComponent,
+    SurveyQuestionsComponent,
   ],
   imports: [
     CommonModule,

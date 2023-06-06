@@ -17,6 +17,7 @@ export class CampaignDetailsComponent implements OnInit {
   metricsTab = false;
   budgetTab = false
   submitted = false;
+  typeSelected: string = '';
   loading = false;
   detailsForm: FormGroup;
 
@@ -142,10 +143,13 @@ export class CampaignDetailsComponent implements OnInit {
         }
         }
     });
-
     }
+  }
 
-
+  onTypeChange(event: any){
+    const selectedArr =  (event.target.value).split(' ');
+    this.typeSelected = selectedArr[1];
+    sessionStorage.setItem('campaignType',this.typeSelected);
   }
 
 }

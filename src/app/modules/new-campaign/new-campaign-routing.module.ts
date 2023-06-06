@@ -5,6 +5,8 @@ import { CamapignAssetsComponent } from './components/campaign-assets/camapign-a
 import { CampaignMetricsComponent } from './components/campaign-metrics/campaign-metrics.component';
 import { LocationComponent } from './components/location/location.component';
 import { CampaignBudgetComponent } from './components/campaign-budget/campaign-budget.component';
+import { VideoQuestionsComponent } from './components/video-questions/video-questions.component';
+import { SurveyQuestionsComponent } from './components/survey-questions/survey-questions.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     path:'budget',
     component: CampaignBudgetComponent
+  },
+  {
+    path:'questions',
+    component: VideoQuestionsComponent
+  },
+  {
+    path:'questionnaires',
+    component: SurveyQuestionsComponent
   },
 ];
 

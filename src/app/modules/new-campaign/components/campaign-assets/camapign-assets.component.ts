@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../service/api.service';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -19,15 +19,15 @@ export class CamapignAssetsComponent implements OnInit {
   loading = false;
   uploadingLogo = false;
   uploadingFile = false;
-  showFirst = true;
-  showSecond = false;
-  goNext = false;
+  logoUploaded = false;
+  fileLoaded = false;
   progress: number = 0;
   iconUrl!: string | ArrayBuffer | null;
   format!: string;
 
   selectedFile: File | null = null;
 
+  testVal = false;
 
 
   uploadIcon!: File;
@@ -36,6 +36,7 @@ export class CamapignAssetsComponent implements OnInit {
   file!: ElementRef;
   @ViewChild("icon", { static: false })
   icon!: ElementRef;
+  campaignType = sessionStorage.getItem('campaignType');
 
   @ViewChild('icon') el!: ElementRef;
   selectedCampaignType = sessionStorage.getItem('selectedType');
@@ -63,13 +64,11 @@ export class CamapignAssetsComponent implements OnInit {
 
   }
 
-  next(){
-    this.router.navigate(['app/new-campaign/metrics'])
-  }
 
   addLogo(event: any){
     this.loading = true;
     this.uploadingLogo = true;
+    this.uploadingFile = false;
     const icon = event.target.files && event.target.files[0];
     const campaignAddress = sessionStorage.getItem('campaignAddress');
 
@@ -82,7 +81,6 @@ export class CamapignAssetsComponent implements OnInit {
       this.service.newStep21(formData,campaignAddress, ).subscribe({
         next:(event: HttpEvent<any>)=>{
         this.loading = false
-        this.uploadingLogo = false;
         switch (event.type) {
           case HttpEventType.Sent:
             break;
@@ -95,15 +93,27 @@ export class CamapignAssetsComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.toastr.success('Campaign icon saved successfully','');
-            this.showSecond = true;
-            this.showFirst = false;
+            this.uploadingLogo = false;
+            this.uploadingFile = false;
+            this.logoUploaded = true;
             setTimeout(() => {
               this.progress = 0;
             }, 1500);
         }
         },
-        error:(err) => {
-          this.toastr.error('Error:',err)
+        error:(err: HttpErrorResponse) => {
+          this.loading = false;
+          if(err.status === 403){
+            this.toastr.error("Your session expired","");
+            this.router.navigate(['./auth/sign-in']);
+          }
+          else if(err.status === 401){
+            this.toastr.info("Contact your admin for access to this page","");
+            this.router.navigate(['/app/dashboard/analytics']);
+          }
+          else{
+            this.toastr.info('Error: ',err.message);
+          }
         }
       })
     }
@@ -116,6 +126,7 @@ export class CamapignAssetsComponent implements OnInit {
   addFile(event:any){
     this.loading = true;
     this.uploadingFile = true;
+    this.uploadingLogo = false;
     const file = event.target.files && event.target.files[0];
     const campaignAddress = sessionStorage.getItem('campaignAddress');
 
@@ -127,8 +138,6 @@ export class CamapignAssetsComponent implements OnInit {
       formData.append("file",this.uploadFile);
       this.service.newStep22(formData,campaignAddress).subscribe({
         next:(event: HttpEvent<any>)=>{
-        this.loading = false
-        this.uploadingFile = false;
         switch (event.type) {
           case HttpEventType.Sent:
             break;
@@ -141,15 +150,19 @@ export class CamapignAssetsComponent implements OnInit {
             break;
           case HttpEventType.Response:
             this.toastr.success('Campaign file saved successfully','');
-            this.goNext = true;
+            this.uploadingFile = false;
+            this.uploadingLogo = false;
+            this.fileLoaded = true;
+            this.loading = false
             setTimeout(() => {
               this.progress = 0;
             }, 1500);
         }
         },
-        error:(err) => {
+        error:(err: HttpErrorResponse) => {
+          this.loading = false;
           if(err.status === 403){
-            this.toastr.info("Your session expired","");
+            this.toastr.error("Your session expired","");
             this.router.navigate(['./auth/sign-in']);
           }
           else if(err.status === 401){
@@ -157,7 +170,8 @@ export class CamapignAssetsComponent implements OnInit {
             this.router.navigate(['/app/dashboard/analytics']);
           }
           else{
-            this.toastr.info('Error: ',err);
+            this.toastr.info('Error: ',err.message);
+            this.router.navigate(['./auth/sign-in']);
           }
 
         }
@@ -166,8 +180,15 @@ export class CamapignAssetsComponent implements OnInit {
 
   }
 
-  saveDetails(){
-
+  next(){
+    if(this.campaignType === 'Social'){
+      this.router.navigate(['app/new-campaign/metrics'])
+    }
+    else if(this.campaignType === 'Survey'){
+      this.router.navigate(['app/new-campaign/questionnaires'])
+    }
+    else{
+      this.router.navigate(['app/new-campaign/questions'])
+    }
   }
-
 }

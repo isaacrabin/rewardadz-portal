@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
+  noOfAttempts = 0;
+  surveyQuizes = 0;
+
   constructor(private http: HttpClient) { }
 
 
@@ -108,4 +111,20 @@ export class ApiService {
       `${environment.baseurl}campaign/metrics/add/location/${address}`,payload
     );
   }
+
+  addQuestionaire(id:any,payload: any){
+    const address  = id
+    return this.http.post(
+      `${environment.baseurl}campaigns/questions/add/${address}`,payload
+
+    );
+  }
+
+  addOpenSurvey(id:any,payload: any){
+    const address  = id
+    return this.http.post(
+      `${environment.baseurl}campaigns/survey/add/${address}`,payload
+    );
+  }
+
 }
