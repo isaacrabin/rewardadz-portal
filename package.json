@@ -22,7 +22,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build && npm run build --configuration production --aot --build-optimizer --output-path=dist",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prettier": "prettier --config ./.prettierrc --write \"src/{app,environments}/**/*{.ts,.html,.scss,.json}\"",
