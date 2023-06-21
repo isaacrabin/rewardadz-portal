@@ -17,7 +17,7 @@ COPY . .
 
 USER root
 
-RUN ng build && npm run postbuild --configuration production --aot --build-optimizer --output-path=dist
+RUN ng build && npm run build --configuration production --aot --build-optimizer --output-path=dist
 
 FROM nginx:1.15.8-alpine
 
