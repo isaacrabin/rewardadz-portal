@@ -38,6 +38,9 @@ import { AgeBreakdownComponent } from './components/age-breakdown/age-breakdown.
 import { TokenInterceptor } from 'src/app/core/interceptor/token.interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoaderComponent } from './components/loader/loader.component';
+import { CampaignInfoComponent } from './components/campaign-info/campaign-info.component';
+import { EditCampaignComponent } from './components/edit-campaign/edit-campaign.component';
+import { CampaignQuestionsComponent } from './components/campaign-questions/campaign-questions.component';
 
 
 
@@ -69,6 +72,9 @@ import { LoaderComponent } from './components/loader/loader.component';
     ConversionsImpressionsComponent,
     AgeBreakdownComponent,
     LoaderComponent,
+    CampaignInfoComponent,
+    EditCampaignComponent,
+    CampaignQuestionsComponent,
 
   ],
   imports: [

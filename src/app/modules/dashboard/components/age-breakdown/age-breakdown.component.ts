@@ -38,6 +38,7 @@ export class AgeBreakdownComponent implements OnInit{
   above35 = 0;
   below18 = 0;
   dataLength = 0;
+  loading = false;
 
 
   mobileUsers= [];

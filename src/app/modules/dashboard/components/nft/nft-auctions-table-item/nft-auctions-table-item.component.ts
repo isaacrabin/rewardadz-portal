@@ -5,6 +5,7 @@ import {Button} from 'tw-elements'
 import { CampaignService } from 'src/app/core/services/campaign.service';
 import { ToastrService } from 'ngx-toastr';
 import { setTimeout } from 'timers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: '[nft-auctions-table-item]',
@@ -21,7 +22,8 @@ export class NftAuctionsTableItemComponent implements OnInit {
 
   constructor(
     private service: CampaignService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) {
   }
 
@@ -48,4 +50,17 @@ export class NftAuctionsTableItemComponent implements OnInit {
   hideDelModal(){
     this.showdeleteModal = false;
   }
+
+  viewInfo(id: string){
+    this.router.navigate([`app/dashboard/campaign-info/${id}`]);
+  }
+
+  editInfo(id: string){
+    this.router.navigate([`app/dashboard/edit-campaign/${id}`]);
+  }
+
+  addQuiz(id: string){
+    this.router.navigate([`app/dashboard/campaign-questions/${id}`]);
+  }
+
 }

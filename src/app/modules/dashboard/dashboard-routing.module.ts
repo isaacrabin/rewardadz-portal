@@ -10,6 +10,8 @@ import { ApiKeyComponent } from './pages/api-key/api-key.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { TeamComponent } from './pages/team/team.component';
 import { NewCampaignComponent } from './pages/new-campaign/new-campaign.component';
+import { EditCampaignComponent } from './components/edit-campaign/edit-campaign.component';
+import { CampaignInfoComponent } from './components/campaign-info/campaign-info.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,9 @@ const routes: Routes = [
       { path: 'api-key', component: ApiKeyComponent },
       { path: 'roles', component: RolesComponent },
       { path: 'team', component: TeamComponent},
+      { path: 'edit-campaign/:id', component: EditCampaignComponent},
+      { path: 'campaign-info/:id', component: CampaignInfoComponent},
+      { path: 'campaign-questions/:id', component: CampaignInfoComponent},
       { path: 'new-campaign', component: NewCampaignComponent},
       { path: '**', redirectTo: 'error/404' },
     ],

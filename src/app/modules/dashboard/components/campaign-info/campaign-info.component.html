@@ -1,0 +1,120 @@
+<div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col items-center">
+      <h3 class="text-md font-bold text-gray-900 dark:text-night-50">Campaign Info</h3>
+      <span class="text-sm text-gray-400 dark:text-night-300">More details about this campaign</span>
+    </div>
+  </div>
+
+  <div class="flex flex-row">
+    <div class="relative w-[50%] overflow-x-auto m-4 shadow-md">
+      <div class="w-full rounded overflow-hidden">
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Campaign Type:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Industry:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Hash Tags:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">234</span> users already participated</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">1000</span> already paid</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative overflow-x-auto m-4 shadow-md w-[50%]">
+      <div class="w-full rounded overflow-hidden">
+        <div class="px-6 py-4">
+          <div class="font-semibold text-md">Budget Info</div>
+          <div class="py-2 flex flex-col justify-center">
+            <div class="px-2 self-center">Campaign Balance</div>
+            <div class="px-2 self-center font-semibold py-2">KES: 13039</div>
+            <p class="self-center p-2">of</p>
+            <div class="px-2 self-center">KES: 586483</div>
+            <!-- <div class="font-semibold">Video</div> -->
+            <button type="button" class=" max-w-[40%] self-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 items-center">
+              Top Up
+            </button>
+          </div>
+          <div class="px-6 pt-4 pb-2 flex flex-row justify-between">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">234</span> payout</span>
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">1000</span> daily budget</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Devices Section-->
+  <div class="flex flex-row">
+    <div class="relative w-[50%] overflow-x-auto m-4 shadow-md">
+      <div class="font-semibold text-md m-4">Gender Metrics</div>
+      <div class="w-full rounded overflow-hidden">
+        <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [plotOptions]="chartOptions.plotOptions!"
+        [yaxis]="chartOptions.yaxis!"
+        [legend]="chartOptions.legend!"
+        [colors]="chartOptions.colors!!"
+        [stroke]="chartOptions.stroke!"
+        [tooltip]="chartOptions.tooltip!"
+        [xaxis]="chartOptions.xaxis!"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="relative overflow-x-auto m-4 shadow-md w-[50%]">
+      <div class="w-full rounded overflow-hidden">
+        <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [yaxis]="chartOptions.yaxis!"
+        [stroke]="chartOptions.stroke!"
+        [tooltip]="chartOptions.tooltip!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [colors]="chartOptions.colors!"
+       ></apx-chart>
+      </div>
+    </div>
+  </div>
+
+  <!--Gender & Age-->
+  <div class="flex flex-row">
+    <div class="relative w-full min-h-[300px] overflow-x-auto m-4 shadow-md">
+      <div class="font-semibold text-md m-4">Device Performance</div>
+      <div class="w-full rounded overflow-hidden">
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Campaign Type:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Industry:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 py-2 flex flex-row">
+          <div class="px-2">Hash Tags:</div>
+          <div class="font-semibold">Video</div>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">234</span> users already participated</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">1000</span> already paid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Location-->
+  <div  class="relative overflow-x-auto m-4">
+    <!-- google-map-demo.component.html -->
+    <agm-map style="height: 350px;" class="app-main"  [latitude]="lat" [longitude]="long" (mapReady)="onMapLoad($event)" [zoom]=7>
+    </agm-map>
+  </div>
+</div>

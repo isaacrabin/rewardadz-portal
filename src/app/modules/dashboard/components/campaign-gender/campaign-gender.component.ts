@@ -51,6 +51,7 @@ export class CampaignGenderComponent implements OnInit{
   overalClick: any;
   clickLabels: any;
   dataLength = 0;
+  loading = false;
 
 
   constructor(
@@ -103,11 +104,11 @@ export class CampaignGenderComponent implements OnInit{
 
    //Request to fetch all primary campaigns
    fetchAllPrimaryCampaigns(){
-    this.spinner.show()
+    this.loading = true;
     // this.fetchAllMobileCustomers();
     this.campaignService.getPrimaryCampaigns().subscribe((resp:any) =>{
-      this.spinner.hide()
      if(resp.success == true){
+      this.loading = false;
        this.rows = resp.data
        this.totalPrimaryCampaigns = this.rows.length;
        let activeStatus =this.rows.filter((data: any) => data.status === true);
@@ -190,7 +191,7 @@ export class CampaignGenderComponent implements OnInit{
       }
   }
      else{
-      this.spinner.hide()
+      this.loading = false;
       this.toastr.error("Error fetching campaigns","")
      }
 

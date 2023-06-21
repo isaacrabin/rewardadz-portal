@@ -11,8 +11,9 @@ export interface Nft {
 }
 
 export interface Campaign {
-  createdAt: number;
-  name: string;
+  _id?: any;
+  createdAt?: number;
+  name?: string;
   industry?: number;
   price: number;
   creator?: string;

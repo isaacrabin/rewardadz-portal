@@ -98,10 +98,10 @@ constructor(
 
    //Request to fetch all primary campaigns
    fetchAllPrimaryCampaigns(){
-    this.spinner.show()
+    this.loading = true;
     // this.fetchAllMobileCustomers();
     this.campaignService.getPrimaryCampaigns().subscribe((resp:any) =>{
-      this.spinner.hide()
+      this.loading = false;
      if(resp.success == true){
        this.rows = resp.data
        this.totalPrimaryCampaigns = this.rows.length;
@@ -213,7 +213,7 @@ constructor(
       // };
   }
      else{
-      this.spinner.hide()
+      this.loading = false;
       this.toastr.error("Error fetching campaigns","")
      }
 

@@ -18,6 +18,8 @@ export class CampaignClicksComponent implements OnInit{
   public chartOptions!: Partial<ChartOptions>;
   private subscription: Subscription = new Subscription();
 
+  loading = false;
+
   rows = [];
   totalPrimaryCampaigns = 0;
   activeCampaign = 0;
@@ -86,11 +88,11 @@ export class CampaignClicksComponent implements OnInit{
 
   //Request to fetch all primary campaigns
   fetchAllPrimaryCampaigns(){
-    this.spinner.show()
+    this.loading = true;
     // this.fetchAllMobileCustomers();
     this.campaignService.getPrimaryCampaigns().subscribe({
       next: (resp) => {
-        this.spinner.hide()
+        this.loading = false;
         if(resp.success == true){
           this.rows = resp.data
           this.totalPrimaryCampaigns = this.rows.length;
@@ -173,6 +175,7 @@ export class CampaignClicksComponent implements OnInit{
         }
       },
       error:(err) =>{
+        this.loading = false;
         if(err.status === 403){
           this.toastr.info("Your session expired","");
           this.router.navigate(['./auth/sign-in']);
