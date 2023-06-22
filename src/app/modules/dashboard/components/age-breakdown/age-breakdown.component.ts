@@ -53,21 +53,21 @@ export class AgeBreakdownComponent implements OnInit{
     this.chartOptions = {
       series: [1103,500,480,201],
       chart: {
-        width: 450,
-        type: "donut"
+        width: 420,
+        type: "pie"
       },
       labels:['18 - 23','24 - 28','24 - 34','35+'],
       colors:["#ed7014", "#0a1172","#004225","#b90e0a","#009161"],
       plotOptions: {
         pie: {
-          startAngle: -90,
-          endAngle: 90,
+          startAngle: 0,
+          endAngle: 360,
           offsetY: 10
         }
       },
       grid: {
         padding: {
-          bottom: -80
+          bottom: 0
         }
       },
 

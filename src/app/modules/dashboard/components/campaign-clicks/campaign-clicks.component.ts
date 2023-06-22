@@ -49,7 +49,7 @@ export class CampaignClicksComponent implements OnInit{
       ],
       chart: {
         height: 350,
-        type: "bar"
+        type: "area"
       },
 
       plotOptions: {
@@ -143,7 +143,7 @@ export class CampaignClicksComponent implements OnInit{
             ],
             chart: {
               height: 350,
-              type: "bar"
+              type: "area"
             },
 
             plotOptions: {

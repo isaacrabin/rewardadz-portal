@@ -55,9 +55,23 @@ export class CampaignService {
   addQuestionaire(id:any,payload: any){
     const address  = id
     return this.http.post(
-      // `${environment.baseurl}campaigns/questions/add/${address}`,payload
       `${environment.baseurl}campaigns/questions/add/${address}`,payload
 
     );
   }
+
+  fetchCampaignById(id: any){
+    const address  = id
+    return this.http.get<any>(
+      `${environment.baseurl}campaigns/search/details/${address}`
+    );
+  }
+
+  fechCampaignDevices(id: any){
+    const address  = id
+    return this.http.get<any>(
+      `${environment.baseurl}campaigns/devices/${address}`
+    );
+  }
+
 }

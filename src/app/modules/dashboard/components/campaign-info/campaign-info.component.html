@@ -1,4 +1,4 @@
-<div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row">
+<div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row bg-gray-100">
   <div class="mb-4 flex items-center justify-between">
     <div class="flex-col items-center">
       <h3 class="text-md font-bold text-gray-900 dark:text-night-50">Campaign Info</h3>
@@ -11,19 +11,20 @@
       <div class="w-full rounded overflow-hidden">
         <div class="px-6 py-2 flex flex-row">
           <div class="px-2">Campaign Type:</div>
-          <div class="font-semibold">Video</div>
+          <div class="font-semibold">{{this.selectedCategory}}</div>
         </div>
+
         <div class="px-6 py-2 flex flex-row">
           <div class="px-2">Industry:</div>
-          <div class="font-semibold">Video</div>
+          <div class="font-semibold">{{this.selectedIndustry}}</div>
         </div>
         <div class="px-6 py-2 flex flex-row">
           <div class="px-2">Hash Tags:</div>
-          <div class="font-semibold">Video</div>
+          <div class="font-semibold">{{this.selectedTag}}</div>
         </div>
         <div class="px-6 pt-4 pb-2">
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">234</span> users already participated</span>
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">1000</span> already paid</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">{{impressionStats}}</span> users already participated</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">{{conversionStats}}</span> already paid out</span>
         </div>
       </div>
     </div>
@@ -54,58 +55,81 @@
   <div class="flex flex-row">
     <div class="relative w-[50%] overflow-x-auto m-4 shadow-md">
       <div class="font-semibold text-md m-4">Gender Metrics</div>
-      <div class="w-full rounded overflow-hidden">
+      <div class="flex justify-center" *ngIf="loading">
+        <div class="loader simple-circle"></div>
+      </div>
+      <div class="w-full rounded overflow-hidden" *ngIf="!loading">
         <apx-chart
-        [series]="chartOptions.series!"
-        [chart]="chartOptions.chart!"
-        [dataLabels]="chartOptions.dataLabels!"
-        [plotOptions]="chartOptions.plotOptions!"
-        [yaxis]="chartOptions.yaxis!"
-        [legend]="chartOptions.legend!"
-        [colors]="chartOptions.colors!!"
-        [stroke]="chartOptions.stroke!"
-        [tooltip]="chartOptions.tooltip!"
-        [xaxis]="chartOptions.xaxis!"
+        *ngIf="totalFemale !== 0 || totalMale !== 0"
+        [series]="chartOptionsGender.series!"
+        [chart]="chartOptionsGender.chart!"
+        [legend]="chartOptionsGender.legend!"
+        [labels]="chartOptionsGender.labels!"
+        [dataLabels]="chartOptionsGender.dataLabels!"
+        [fill]="chartOptionsGender.fill!"
+        [states]="chartOptionsGender.states!"
+        [responsive]="chartOptionsGender.responsive!"
         ></apx-chart>
+        <div class="flex justify-center" *ngIf="totalFemale === 0 && totalMale === 0">
+          <div class="flex-col">
+            <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+            <p class="text-sm text-gray-400 dark:text-night-200">No data</p>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="relative overflow-x-auto m-4 shadow-md w-[50%]">
-      <div class="w-full rounded overflow-hidden">
+      <div class="font-semibold text-md m-4">Age Metrics</div>
+      <div class="flex justify-center" *ngIf="loading">
+        <div class="loader simple-circle"></div>
+      </div>
+      <div class="w-full rounded overflow-hidden" *ngIf="!loading">
         <apx-chart
-        [series]="chartOptions.series!"
-        [chart]="chartOptions.chart!"
-        [xaxis]="chartOptions.xaxis!"
-        [yaxis]="chartOptions.yaxis!"
-        [stroke]="chartOptions.stroke!"
-        [tooltip]="chartOptions.tooltip!"
-        [dataLabels]="chartOptions.dataLabels!"
-        [colors]="chartOptions.colors!"
+        *ngIf="totalFemale !== 0 && totalMale !== 0"
+        [series]="chartOptionsAge.series!"
+        [series]="chartOptionsAge.series!"
+        [chart]="chartOptionsAge.chart!"
+        [labels]="chartOptionsAge.labels!"
+        [grid]="chartOptionsAge.grid!"
+        [colors]="chartOptionsAge.colors!"
+        [plotOptions]="chartOptionsAge.plotOptions!"
+        [responsive]="chartOptionsAge.responsive!"
        ></apx-chart>
+       <div class="flex justify-center" *ngIf="totalFemale === 0 && totalMale === 0">
+        <div class="flex-col">
+          <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+          <p class="text-sm text-gray-400 dark:text-night-200">No data</p>
+        </div>
+      </div>
       </div>
     </div>
   </div>
 
-  <!--Gender & Age-->
+  <!--DEVICE-->
   <div class="flex flex-row">
-    <div class="relative w-full min-h-[300px] overflow-x-auto m-4 shadow-md">
-      <div class="font-semibold text-md m-4">Device Performance</div>
-      <div class="w-full rounded overflow-hidden">
-        <div class="px-6 py-2 flex flex-row">
-          <div class="px-2">Campaign Type:</div>
-          <div class="font-semibold">Video</div>
-        </div>
-        <div class="px-6 py-2 flex flex-row">
-          <div class="px-2">Industry:</div>
-          <div class="font-semibold">Video</div>
-        </div>
-        <div class="px-6 py-2 flex flex-row">
-          <div class="px-2">Hash Tags:</div>
-          <div class="font-semibold">Video</div>
-        </div>
-        <div class="px-6 pt-4 pb-2">
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><span class="text-orange-600">234</span> users already participated</span>
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">KES: <span class="text-orange-600">1000</span> already paid</span>
+    <div class="relative w-full min-h-[300px] overflow-x-hidden m-4 shadow-md">
+      <div class="flex justify-center" *ngIf="loading">
+        <div class="loader simple-circle"></div>
+      </div>
+      <div *ngIf="!loading">
+        <div class="font-semibold text-md m-4">Device Performance</div>
+        <apx-chart
+          *ngIf="totalFemale !== 0 || totalMale !== 0"
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [yaxis]="chartOptions.yaxis!"
+          [stroke]="chartOptions.stroke!"
+          [tooltip]="chartOptions.tooltip!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [colors]="chartOptions.colors!"
+         ></apx-chart>
+        <div class="flex justify-center" *ngIf="totalFemale === 0 && totalMale === 0">
+          <div class="flex-col">
+            <svg-icon src="assets/icons/solid/empty.svg" [svgClass]="'h-16 w-16'"></svg-icon>
+            <p class="text-sm text-gray-400 dark:text-night-200">No data</p>
+          </div>
         </div>
       </div>
     </div>

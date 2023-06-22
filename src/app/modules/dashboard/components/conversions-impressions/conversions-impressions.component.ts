@@ -1,28 +1,44 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartComponent } from 'ng-apexcharts';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CampaignService } from 'src/app/core/services/campaign.service';
-
-//import { ChartOptions } from 'src/app/shared/models/chart-options';
-
-
 import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexXAxis,
+  ApexPlotOptions,
+  ApexStroke,
+  ApexYAxis,
+  ApexFill,
+  ApexTooltip,
   ApexNonAxisChartSeries,
   ApexResponsive,
-  ApexChart,
-  ApexStroke,
-  ApexFill
+  ApexLegend,
 } from "ng-apexcharts";
 
+// export type ChartOptions = {
+//   series: ApexNonAxisChartSeries;
+//   chart: ApexChart;
+//   responsive: ApexResponsive[];
+//   labels: any;
+//   colors: any;
+//   stroke: ApexStroke;
+//   fill: ApexFill;
+// };
+
 export type ChartOptions = {
-  series: ApexNonAxisChartSeries;
-  chart: ApexChart;
-  responsive: ApexResponsive[];
-  labels: any;
-  colors: any;
-  stroke: ApexStroke;
-  fill: ApexFill;
+  series?: ApexAxisChartSeries;
+  chart?: ApexChart;
+  xaxis?: ApexXAxis;
+  yaxis?: ApexYAxis;
+  stroke?: ApexStroke;
+  tooltip?: ApexTooltip;
+  dataLabels?: ApexDataLabels;
+  colors?: string [];
+  plotOptions: ApexPlotOptions,
+  legend: ApexLegend
 };
 
 @Component({
@@ -32,7 +48,8 @@ export type ChartOptions = {
 })
 export class ConversionsImpressionsComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions!: Partial<ChartOptions>;
+  // public chartOptions: Partial<ChartOptions>;
   dataLength  = 0;
 
   userId : string = '';
@@ -59,37 +76,69 @@ constructor(
   private toastr: ToastrService,
   private campaignService: CampaignService
 ) {
+  this.chartOptions = {
+    series: [
+      {
+        name: "Users",
+        data:  []
+      }
+    ],
+    chart: {
+      height: 350,
+      type: "bar"
+    },
 
-
-
-    this.chartOptions = {
-      series: [14, 23],
-      chart: {
-        type: "polarArea"
+    plotOptions: {
+      bar: {
+        // horizontal: true,
+      }
+    },
+    colors: ["#16a34a"],
+          xaxis: {
+      categories: [],
+      labels: {
+        show: true,
       },
+    },
 
-      stroke: {
-        colors: ["#fff"]
+    tooltip: {
+      theme: 'light',
+      y: {
+        formatter: function (val) {
+          return val + '';
+        },
       },
-      colors:["#ed7014", "#1e40af"],
-      fill: {
-        opacity: 0.8,
-        colors:["#ed7014", "#1e40af"],
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
-    };
+    },
+  };
+
+    // this.chartOptions = {
+    //   series: [14, 23],
+    //   chart: {
+    //     type: "polarArea"
+    //   },
+
+    //   stroke: {
+    //     colors: ["#fff"]
+    //   },
+    //   colors:["#ed7014", "#1e40af"],
+    //   fill: {
+    //     opacity: 0.8,
+    //     colors:["#ed7014", "#1e40af"],
+    //   },
+    //   responsive: [
+    //     {
+    //       breakpoint: 480,
+    //       options: {
+    //         chart: {
+    //           width: 200
+    //         },
+    //         legend: {
+    //           position: "bottom"
+    //         }
+    //       }
+    //     }
+    //   ]
+    // };
   }
   ngOnInit(): void {
    this.fetchAllPrimaryCampaigns();
@@ -141,33 +190,68 @@ constructor(
       this.dataLength = cdata;
 
       this.chartOptions = {
-        series: [this.overalReach,this.overalEngagements],
-        chart: {
-          type: "polarArea"
-        },
-        stroke: {
-          colors: ["#fff"]
-        },
-        colors:["#ed7014", "#1e40af"],
-        fill: {
-          opacity: 0.8,
-          colors:["#ed7014", "#1e40af"],
-        },
-        labels:['Impressions','Conversions'],
-        responsive: [
+        series: [
           {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 400
-              },
-              legend: {
-                position: "bottom"
-              }
-            }
+            name: "Users",
+            data:  [this.overalReach,this.overalEngagements]
           }
-        ]
+        ],
+        chart: {
+          height: 350,
+          type: "bar"
+        },
+
+        plotOptions: {
+          bar: {
+            // horizontal: true,
+          }
+        },
+        colors: ["#16a34a"],
+              xaxis: {
+          categories: ['Impressions','Conversions'],
+          labels: {
+            show: true,
+          },
+        },
+
+        tooltip: {
+          theme: 'light',
+          y: {
+            formatter: function (val) {
+              return val + '';
+            },
+          },
+        },
       };
+
+      // this.chartOptions = {
+      //   series: [this.overalReach,this.overalEngagements],
+      //   chart: {
+      //     type: "polarArea"
+      //   },
+      //   stroke: {
+      //     colors: ["#fff"]
+      //   },
+      //   colors:["#ed7014", "#1e40af"],
+      //   fill: {
+      //     opacity: 0.8,
+      //     colors:["#ed7014", "#1e40af"],
+      //   },
+      //   labels:['Impressions','Conversions'],
+      //   responsive: [
+      //     {
+      //       breakpoint: 480,
+      //       options: {
+      //         chart: {
+      //           width: 400
+      //         },
+      //         legend: {
+      //           position: "bottom"
+      //         }
+      //       }
+      //     }
+      //   ]
+      // };
 
       //Plot the gender graph
       // this.chartOptions = {

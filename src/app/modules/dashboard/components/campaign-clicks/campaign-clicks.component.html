@@ -28,7 +28,7 @@
 
 
       <!-- Card Body -->
-      <apx-chart
+      <!-- <apx-chart
         *ngIf="dataLength > 0"
         [series]="chartOptions.series!"
         [chart]="chartOptions.chart!"
@@ -43,7 +43,20 @@
         [colors]="chartOptions.colors!"
         [grid]="chartOptions.grid!"
         [title]="chartOptions.title!">
-      </apx-chart>
+      </apx-chart> -->
+
+      <apx-chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [plotOptions]="chartOptions.plotOptions!"
+      [yaxis]="chartOptions.yaxis!"
+      [legend]="chartOptions.legend!"
+      [colors]="chartOptions.colors!!"
+      [stroke]="chartOptions.stroke!"
+      [tooltip]="chartOptions.tooltip!"
+      [xaxis]="chartOptions.xaxis!"
+      ></apx-chart>
 
       <!-- end Chart -->
 
