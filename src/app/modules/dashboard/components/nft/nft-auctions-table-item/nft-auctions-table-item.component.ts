@@ -51,8 +51,12 @@ export class NftAuctionsTableItemComponent implements OnInit {
     this.showdeleteModal = false;
   }
 
-  viewInfo(id: string){
-    this.router.navigate([`app/dashboard/campaign-info/${id}`]);
+  viewInfo(val: any){
+    sessionStorage.setItem('selectedLocation',JSON.stringify(val.performance.location));
+    sessionStorage.setItem('selectedID',val._id);
+    sessionStorage.setItem('selectedType',val.type);
+    sessionStorage.setItem('selectedWalletID',val.network.primary);
+    this.router.navigate([`app/dashboard/campaign-info/${val._id}`]);
   }
 
   editInfo(id: string){

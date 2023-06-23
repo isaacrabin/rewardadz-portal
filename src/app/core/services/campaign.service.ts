@@ -74,4 +74,25 @@ export class CampaignService {
     );
   }
 
+  fetchAgeMetrics(id: any){
+    const address  = id
+    return this.http.get<any>(
+      `${environment.baseurl}campaigns/age/${address}`
+    );
+  }
+
+  fechCampaignAgeMetrics(id: any){
+    const address  = id
+    return this.http.get<any>(
+      `${environment.adminurl}campaigns/age/${address}`
+    );
+  }
+
+  newStep4(id:any, payload:any){
+    const address  = id
+    return this.http.post(
+      `${environment.baseurl}campaigns/create/step3/${address}`,payload
+    );
+  }
+
 }

@@ -1,5 +1,6 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, OnInit,ElementRef, NgZone, ViewChild,  } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -20,6 +21,7 @@ import {
   ApexLegend,
   ApexStates
 } from "ng-apexcharts";
+import { ToastrService } from 'ngx-toastr';
 import { CampaignService } from 'src/app/core/services/campaign.service';
 
 
@@ -63,7 +65,9 @@ export class CampaignInfoComponent implements OnInit {
   public chartOptionsAge!: Partial<ChartOptionsAge>;
   public chartOptionsGender!: Partial<ChartOptionsAge>;
   gradient: any = [];
-  allcoords: any = []
+  allcoords: any = [];
+  topUpForm: FormGroup;
+
 
   public map!: google.maps.Map;
   private heatmap!: google.maps.visualization.HeatmapLayer;
@@ -99,13 +103,16 @@ export class CampaignInfoComponent implements OnInit {
   impressionStats: any;
   totalFemale: any;
   totalMale: any;
-
+  showtopUpModal = false;
+  campaignAddress:string = '';
 
   constructor(
     private ngZone: NgZone,
     private mapsAPILoader: MapsAPILoader,
     private route: ActivatedRoute,
     private service: CampaignService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
 
     this.gradient = [
@@ -123,7 +130,13 @@ export class CampaignInfoComponent implements OnInit {
       'rgba(127, 0, 63, 1)',
       'rgba(191, 0, 31, 1)',
       'rgba(255, 0, 0, 1)'
-    ]
+    ];
+
+    this.topUpForm = this.fb.group({
+      amount:['',[Validators.required]],
+      dailyBudget: ['',[Validators.required]],
+      payout:['',[Validators.required]]
+    });
 
     this.chartOptions = {
       series: [
@@ -244,6 +257,7 @@ export class CampaignInfoComponent implements OnInit {
   ngOnInit(): void {
     this.fetchDetails();
     this.fetchDevices();
+    this.fetchAgeMetrics();
   }
 
 
@@ -353,7 +367,6 @@ export class CampaignInfoComponent implements OnInit {
 
         });
 
-        console.log(myDeviceArrayCount )
 
         this.chartOptions = {
           series: [
@@ -394,20 +407,107 @@ export class CampaignInfoComponent implements OnInit {
 
   }
 
+  fetchAgeMetrics(){
+    this.loading=true
+    this.route.params.subscribe(params => {
+      let id = params['id']; // (+) converts string 'id' to a number
+      this.campaignAddress = id;
+      this.service.fetchAgeMetrics(id).subscribe((resp: any) => {
+        let above_35 = resp.data.above35
+        let between12To22 = resp.data.between12To22
+        let between23To28 = resp.data.between23To28
+        let between29To34 = resp.data.between29To34
+        this.chartOptionsAge = {
+          series: [between12To22,between23To28,between29To34,above_35],
+          chart: {
+            width: 420,
+            type: "pie"
+          },
+          labels:['18 - 23','24 - 28','24 - 34','35+'],
+          colors:["#ed7014", "#0a1172","#004225","#b90e0a","#009161"],
+          plotOptions: {
+            pie: {
+              startAngle: 0,
+              endAngle: 360,
+              offsetY: 10
+            }
+          },
+          grid: {
+            padding: {
+              bottom: 0
+            }
+          },
+
+          legend: {
+            position:'bottom',
+            formatter: function(val, opts) {
+              return val + " - " + opts.w.globals.series[opts.seriesIndex];
+            }
+          },
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 400
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          ]
+        };
+
+      })
+    })
+
+  }
+
   onMapLoad(mapInstance: google.maps.Map) {
+    let location: any;
+    location = sessionStorage.getItem('selectedLocation');
     this.map = mapInstance;
+    let selectedLocation=JSON.parse(location)
+
     // here our in other method after you get the coords; but make sure map is loaded
-    for(let i = 0; i < this.allcoords.length; i++) {
-      const coordi = this.allcoords[i];
+    for (var i = 0; i < selectedLocation.length; i++) {
+      const coordi = selectedLocation[i];
       var myLatlng = new google.maps.LatLng(coordi.lat, coordi.long);
       this.lat_lng.push(myLatlng);
     }
+
     const coords: google.maps.LatLng[] = this.lat_lng;
     this.heatmap = new google.maps.visualization.HeatmapLayer({
-        map: this.map,
-        data: coords
+       map: this.map,
+       data: coords
     });
     this.heatmap.setMap(this.map);
     this.heatmap.set('gradient', this.heatmap.get('gradient') ? null : this.gradient);
-  }
+ }
+
+ topUp(){
+  this.showtopUpModal = true;
+ }
+ addFunds(){
+  this.loading = true;
+  const {amount,dailyBudget,payout} = this.topUpForm.value;
+  const payload = {
+    totalBudget: amount,
+    dailyBudget: dailyBudget,
+    payout: payout,
+    feeType: "plus",
+    numberOfUsers: '5',
+    address: sessionStorage.getItem('userId'),
+    campaignName: this.selectedCampaign
+  };
+  this.service.newStep4(this.campaignAddress,payload).subscribe((resp:any) =>{
+    this.loading = false;
+    this.toastr.success("Camapign topup successful","")
+    this.showtopUpModal = false;
+  })
+ }
+ hideDelModal(){
+  this.showtopUpModal = false;
+ }
 }
