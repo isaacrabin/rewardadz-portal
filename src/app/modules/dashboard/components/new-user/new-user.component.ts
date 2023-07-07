@@ -1,38 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { Campaign, Nft } from '../../models/nft';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TeamService } from 'src/app/core/services/team.service';
-import { Role } from '../../models/role';
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.scss']
+  selector: 'app-new-user',
+  templateUrl: './new-user.component.html',
+  styleUrls: ['./new-user.component.scss']
 })
-export class RolesComponent implements OnInit{
-  public rows: Role[] = [];
-  noTeam = false;
+export class NewUserComponent implements OnInit {
 
+  loading = false;
+  form: FormGroup;
+  submitted = false;
+  rows: any[] = [];
+  userId = sessionStorage.getItem('userId');
+
+  get f() {
+    return this.form.controls;
+  }
 
   constructor(
-    private spinner: NgxSpinnerService,
+    private fb: FormBuilder,
+    private router: Router,
     private toastr: ToastrService,
     private service: TeamService,
-    private router: Router
+    private spinner: NgxSpinnerService
   ) {
-
+    this.form = this.fb.group({
+      name:["",[Validators.required]],
+      email:["",[Validators.required]],
+      password:["",[Validators.required]],
+      role:["",[Validators.required]]
+    });
   }
 
   ngOnInit(): void {
-    this.getAll();
+    this.getAll()
   }
-
-  gotoNewRole(){
-    this.router.navigate(['app/dashboard/new-role']);
-  }
-
 
   getAll(){
     this.spinner.show()
@@ -44,18 +51,12 @@ export class RolesComponent implements OnInit{
           case true:
             this.rows = resp.data;
             const totalUsers = this.rows.length;
-            if(totalUsers === 0){
-              this.noTeam = true;
-            }
             break;
 
           case false:
             this.rows = resp.data;
             this.service.teamMembers = resp.data;
             const totalUser = this.rows.length;
-            if(totalUser === 0){
-              this.noTeam = true;
-            }
             break;
 
           default:
@@ -75,6 +76,30 @@ export class RolesComponent implements OnInit{
       }
       }
   });
+
+  }
+
+  saveData(){
+    this.submitted = true;
+    this.loading = true;
+    const {name, email, password,role} = this.form.value;
+    const payload = {
+      userName: name,
+      userEmail: email,
+      roleId: role,
+      userPassword: password
+    }
+    this.service.addOrgUser(this.userId,payload).subscribe({
+      next:(resp) => {
+        this.loading = false;
+        this.toastr.success("User added successfully");
+      },
+      error: (err) => {
+        this.loading = false;
+        this.toastr.error(err.error.error)
+      }
+    })
+
 
   }
 

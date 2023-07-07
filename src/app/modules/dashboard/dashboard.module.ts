@@ -41,6 +41,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { CampaignInfoComponent } from './components/campaign-info/campaign-info.component';
 import { EditCampaignComponent } from './components/edit-campaign/edit-campaign.component';
 import { CampaignQuestionsComponent } from './components/campaign-questions/campaign-questions.component';
+import { NewRoleComponent } from './components/new-role/new-role.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
 
 
 
@@ -75,6 +77,9 @@ import { CampaignQuestionsComponent } from './components/campaign-questions/camp
     CampaignInfoComponent,
     EditCampaignComponent,
     CampaignQuestionsComponent,
+    NewRoleComponent,
+
+    NewUserComponent,
 
   ],
   imports: [
@@ -89,7 +94,6 @@ import { CampaignQuestionsComponent } from './components/campaign-questions/camp
       apiKey: 'AIzaSyBG3YReMMbQ9XhcsxJzNvTZwK3Qbn5pebE' + '&libraries=visualization'
    }),
   ],
-
 
   providers:[
     CampaignService,

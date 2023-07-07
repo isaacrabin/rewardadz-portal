@@ -95,4 +95,23 @@ export class CampaignService {
     );
   }
 
+  getPermissions(){
+    return this.http.get(
+      `${environment.baseurl}permisions`,
+    );
+  }
+
+  addRole(payload: any){
+    return this.http.post(
+      `${environment.baseurl}roles`,payload
+    );
+  }
+
+  updateCampaign(campaignDetailsID: any,payload: any){
+    const address  = campaignDetailsID
+    return this.http.patch<any>(
+      `${environment.baseurl}campaigns/update/details/${address}`,payload
+    );
+  }
+
 }

@@ -12,6 +12,8 @@ import { TeamComponent } from './pages/team/team.component';
 import { NewCampaignComponent } from './pages/new-campaign/new-campaign.component';
 import { EditCampaignComponent } from './components/edit-campaign/edit-campaign.component';
 import { CampaignInfoComponent } from './components/campaign-info/campaign-info.component';
+import { NewRoleComponent } from './components/new-role/new-role.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,8 @@ const routes: Routes = [
       { path: 'campaign-info/:id', component: CampaignInfoComponent},
       { path: 'campaign-questions/:id', component: CampaignInfoComponent},
       { path: 'new-campaign', component: NewCampaignComponent},
+      { path: 'new-role', component: NewRoleComponent},
+      { path: 'new-user', component: NewUserComponent},
       { path: '**', redirectTo: 'error/404' },
     ],
   },

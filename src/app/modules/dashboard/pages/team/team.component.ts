@@ -61,7 +61,6 @@ export class TeamComponent implements OnInit{
         this.rows = response.data;
         this.service.teamMembers = response.data;
         const totalUsers = this.profileInfo.length;
-        console.log('Test',this.noTeam)
         if(totalUsers === 0){
           this.noTeam = true;
         }
@@ -74,13 +73,18 @@ export class TeamComponent implements OnInit{
      }
       },
       error: (err) => {
+        this.spinner.hide()
       if(err.status === 403){
         this.toastr.info("Your session expired","");
         this.router.navigate(['./auth/sign-in']);
       }
-      if(err.status === 401){
+      else if(err.status === 401){
         this.toastr.info("Contact your admin for access to this page","");
         this.router.navigate(['/dashboard/analytics']);
+      }
+      else if(err.status === 400){
+        this.noTeam = true;
+        this.toastr.warning(err.error.message,"");
       }
       }
   });
@@ -89,7 +93,8 @@ export class TeamComponent implements OnInit{
 
   getAll(){
     this.spinner.show();
-    this.service.getTeamMembers(this.orgId).subscribe((resp) =>{
+    this.service.getTeamMembers(this.orgId).subscribe({
+      next: (resp) => {
       this.spinner.hide();
       switch (resp.success) {
         case true:
@@ -102,6 +107,7 @@ export class TeamComponent implements OnInit{
           break;
 
         case false:
+          this.spinner.hide();
           this.profileInfo = resp.data;
           this.service.teamMembers = resp.data;
           const totalUser = this.profileInfo.length;
@@ -116,10 +122,11 @@ export class TeamComponent implements OnInit{
           break;      }
 
     },
-    (err) =>{
+    error:(err) =>{
+      console.log(err)
       this.spinner.hide();
       this.toastr.error('Error while fetching team. Try again later.')
     }
-    )
+  })
   }
 }

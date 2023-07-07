@@ -25,4 +25,11 @@ export class TeamService {
       `${environment.baseurl}roles/${address}`,
     );
   }
+
+  addOrgUser(id: any,payload: any){
+    const address  = id
+    return this.http.post<any>(
+      `${environment.baseurl}usermanagement/add/new/user/${address}`,payload
+    );
+  }
 }

@@ -1,12 +1,11 @@
 <div class="flex-col rounded-lg bg-white m-4 px-8 py-8 dark:bg-night-700 sm:flex-row">
   <div class="mb-4 flex items-center justify-between">
     <div class="flex-col items-center">
-      <h3 class="text-md font-bold text-gray-900 dark:text-night-50">Edit Camapign</h3>
-      <span class="text-sm text-gray-400 dark:text-night-300">{{campaignName}}</span>
+      <h3 class="text-md font-bold text-gray-900 dark:text-night-50">New Team member</h3>
     </div>
-    <button routerLink="/app/dashboard/primary-campaigns"
+    <button routerLink="/app/dashboard/team"
       class="flex-none rounded-md bg-primary-600 px-4 py-2.5 text-xs font-semibold text-gray-100 hover:bg-primary-400 dark:bg-night-600 dark:text-night-200 dark:hover:bg-night-500">
-      Back
+     Back
     </button>
   </div>
   <div class="flex-col">
@@ -19,7 +18,7 @@
       <div class="w-full mx-2 svelte-1l8159u">
       <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Name</div>
         <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-          <input [ngClass]="{ 'is__invalid-input': submitted && f['name'].errors }" formControlName="name"  placeholder="Name of campaign" maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+          <input [ngClass]="{ 'is__invalid-input': submitted && f['name'].errors }" formControlName="name"  placeholder="Name of the user" maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
          </div>
          <div *ngIf="submitted && f['name'].errors" class="is__invalid-error">
           <div *ngIf="f['name'].errors['required']">Required field</div>
@@ -28,42 +27,55 @@
       </div>
       </div>
 
-    <div class="flex flex-col md:flex-row w-full">
-      <div class="w-full mx-2 svelte-1l8159u">
-      <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Description</div>
-        <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-          <input [ngClass]="{ 'is__invalid-input': submitted && f['description'].errors }" formControlName="description"  placeholder="Description.." maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+      <div class="flex flex-col md:flex-row w-full">
+        <div class="w-full mx-2 svelte-1l8159u">
+        <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Email</div>
+          <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+            <input [ngClass]="{ 'is__invalid-input': submitted && f['email'].errors }" formControlName="email"  placeholder="Enter email.." maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+           </div>
+           <div *ngIf="submitted && f['email'].errors" class="is__invalid-error">
+            <div *ngIf="f['email'].errors['required']">Required field</div>
+            <div *ngIf="f['email'].errors['pattern']">Provide a valid email</div>
           </div>
-          <div *ngIf="submitted && f['description'].errors" class="is__invalid-error">
-          <div *ngIf="f['description'].errors['required']">Required field</div>
         </div>
-      </div>
-      </div>
+        </div>
 
-      <div class="flex flex-col md:flex-row w-full">
-        <div class="w-full mx-2 svelte-1l8159u">
-        <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Industry</div>
-          <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-            <input [ngClass]="{ 'is__invalid-input': submitted && f['industry'].errors }" formControlName="industry"  placeholder="Industry" maxlength="100" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+        <div class="flex flex-col md:flex-row w-full">
+          <div class="w-full mx-2 svelte-1l8159u">
+          <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Password</div>
+            <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
+              <input [ngClass]="{ 'is__invalid-input': submitted && f['password'].errors }" formControlName="password"  placeholder="Password" maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+             </div>
+             <div *ngIf="submitted && f['password'].errors" class="is__invalid-error">
+              <div *ngIf="f['password'].errors['required']">Required field</div>
+              <div *ngIf="f['password'].errors['pattern']">Provide a valid password</div>
             </div>
-            <div *ngIf="submitted && f['industry'].errors" class="is__invalid-error">
-            <div *ngIf="f['industry'].errors['required']">Required field</div>
           </div>
-        </div>
-        </div>
-      <div class="flex flex-col md:flex-row w-full">
-        <div class="w-full mx-2 svelte-1l8159u">
-        <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Hash tags</div>
-          <div class="bg-white my-2 p-1 flex border border-gray-200 rounded-lg svelte-1l8159u">
-            <input [ngClass]="{ 'is__invalid-input': submitted && f['tags'].errors }" formControlName="tags"  placeholder="tags" maxlength="20" class="p-1 px-2 appearance-none outline-none w-full text-gray-800">
+          </div>
+          <div class="flex flex-col md:flex-row w-full">
+            <div class="w-full flex-1 mx-2 svelte-1l8159u">
+              <div class="font-bold text-gray-600 text-xs leading-8 h-6 mx-2 mt-3">Role</div>
+                <div class="my-2 p-1 flex svelte-1l8159u">
+                  <select [ngClass]="{ 'is__invalid-input': submitted && f['role'].errors }" formControlName="role" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected value="">Select role..</option>
+                    <option  *ngFor="let role of rows" value={{role._id}}>{{role.name}}</option>
+                  </select>
+                </div>
+                <div *ngIf="submitted && f['role'].errors" class="is__invalid-error">
+                  <div *ngIf="f['role'].errors['required']">Required field</div>
+                </div>
             </div>
-            <div *ngIf="submitted && f['tags'].errors" class="is__invalid-error">
-            <div *ngIf="f['tags'].errors['required']">Required field</div>
           </div>
+
+
+      <!-- <div class="grid grid-flow-col auto-cols-[300px]" *ngFor="let perm of permissions">
+        <div class="p-2">
+          <label for=""><input id="remember-me" formControlName="permission" (change)="addPermission($event,perm)" class="border-gray-600 bg-white cursor-pointer" name="remember-me" type="checkbox" /> {{perm.name}}</label>
         </div>
-        </div>
+      </div> -->
+
       <div class="flex p-2 mt-4">
-        <button  routerLink="/app/dashboard/primary-campaigns" type="button" class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
+        <button  routerLink="/app/dashboard/team" type="button" class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center">
           Previous
         </button>
       <div class="flex-auto flex flex-row-reverse">

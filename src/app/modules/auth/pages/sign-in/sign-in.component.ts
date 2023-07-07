@@ -58,11 +58,12 @@ export class SignInComponent implements OnInit {
             this.toastr.success("Login Success","");
             this.router.navigate(['/app/dashboard']);
             sessionStorage.setItem('profile',JSON.stringify(resp.data));
-            sessionStorage.setItem('username',resp.data.account.username);
-            sessionStorage.setItem('orgEmail',resp.data.account.email);
-            sessionStorage.setItem('userId',resp.data.account._id);
-            sessionStorage.setItem('org',resp.data.organization.icon);
-            sessionStorage.setItem('token',resp.token);
+            sessionStorage.setItem('username',resp.data.user.username);
+            sessionStorage.setItem('orgEmail',resp.data.user.email);
+            sessionStorage.setItem('userId',resp.data.user._id);
+            // sessionStorage.setItem('org',resp.data.organization.icon);
+            sessionStorage.setItem('token',resp.data.token);
+            console.log('TOKEN',resp.data.token)
             break;
 
           case false:
@@ -71,6 +72,7 @@ export class SignInComponent implements OnInit {
 
            default:
              this.toastr.error("An error occured. Please try again later","");
+             break
         }
       });
     }
