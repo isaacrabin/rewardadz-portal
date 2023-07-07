@@ -28,7 +28,7 @@ export class TeamService {
 
   addOrgUser(id: any,payload: any){
     const address  = id
-    return this.http.post<any>(
+    return this.http.patch<any>(
       `${environment.baseurl}usermanagement/add/new/user/${address}`,payload
     );
   }
