@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -92,11 +93,23 @@ export class NewUserComponent implements OnInit {
     this.service.addOrgUser(this.userId,payload).subscribe({
       next:(resp) => {
         this.loading = false;
-        this.toastr.success("User added successfully");
+        switch (resp.success) {
+          case true:
+            this.toastr.success("User added successfully");
+            break;
+
+          case false:
+            this.toastr.warning(resp.message);
+          break;
+
+          default:
+            break;
+        }
+
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         this.loading = false;
-        this.toastr.error(err.error.error)
+        this.toastr.error(err.error.message);
       }
     })
 
